@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>ChatApp</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -20,8 +20,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);height:100vh
 button{font-family:var(--font)}
 
 /* ── AUTH ── */
-#auth{display:flex;align-items:center;justify-content:center;height:100vh;background:radial-gradient(ellipse at 30% 20%,rgba(124,92,252,.12),transparent 60%),var(--bg)}
-.auth-card{background:var(--sidebar);border:1px solid var(--border);border-radius:20px;padding:40px;width:420px}
+#auth{display:flex;align-items:center;justify-content:center;height:100vh;background:radial-gradient(ellipse at 30% 20%,rgba(124,92,252,.12),transparent 60%),var(--bg);padding:20px}
+.auth-card{background:var(--sidebar);border:1px solid var(--border);border-radius:20px;padding:40px;width:100%;max-width:420px}
 .auth-logo{font-size:26px;font-weight:600;margin-bottom:6px;background:linear-gradient(135deg,#a78bfa,#7c5cfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .auth-sub{color:var(--muted);font-size:14px;margin-bottom:28px}
 .auth-tabs{display:flex;gap:4px;background:var(--bg);border-radius:10px;padding:4px;margin-bottom:24px}
@@ -40,16 +40,16 @@ button{font-family:var(--font)}
 
 /* ── EMOJI PICKER ── */
 .emoji-label{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;display:block}
-.emoji-grid{display:flex;flex-wrap:wrap;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px}
-.ep-btn{font-size:22px;width:40px;height:40px;background:none;border:2px solid transparent;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.emoji-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(40px, 1fr));gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px;max-height:150px;overflow-y:auto}
+.ep-btn{font-size:22px;height:40px;background:none;border:2px solid transparent;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .ep-btn:hover{background:rgba(124,92,252,.15)}
 .ep-btn.selected{border-color:var(--accent);background:rgba(124,92,252,.2)}
 
 /* ── APP ── */
-#app{display:none;height:100vh;flex-direction:row}
+#app{display:none;height:100vh;flex-direction:row;position:relative;width:100%}
 #app.on{display:flex}
 
-.sb{width:280px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.sb{width:280px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;transition:transform 0.3s ease}
 .sb-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
 .sb-user-info{flex:1;min-width:0}
 .sb-username{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
@@ -88,15 +88,16 @@ button{font-family:var(--font)}
 .empty-state{text-align:center;padding:24px 16px;color:var(--muted);font-size:13px}
 
 /* ── CHAT AREA ── */
-.ca{flex:1;display:flex;flex-direction:column;min-width:0}
+.ca{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--bg)}
 .ch{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:var(--sidebar);flex-shrink:0}
 .ch-info h2{font-size:15px;font-weight:600}
 .ch-info p{font-size:12px;color:var(--muted)}
+.back-btn{display:none} /* Caché sur PC */
 .msgs{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:3px}
 .welcome{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted)}
 .welcome h2{color:var(--text);font-size:18px;font-weight:600}
 .dsep{align-self:center;font-size:11px;color:var(--muted);background:rgba(255,255,255,.04);border-radius:20px;padding:3px 12px;margin:8px 0}
-.msg{display:flex;flex-direction:column;max-width:62%}
+.msg{display:flex;flex-direction:column;max-width:75%}
 .msg.s{align-self:flex-end;align-items:flex-end}
 .msg.r{align-self:flex-start;align-items:flex-start}
 .msg-who{font-size:11px;color:var(--muted);margin-bottom:2px;padding:0 3px}
@@ -110,9 +111,9 @@ button{font-family:var(--font)}
 .send-btn{width:34px;height:34px;background:var(--accent);border:none;border-radius:9px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
 /* ── MODALS ── */
-.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(6px)}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(6px);padding:20px}
 .ov.on{display:flex}
-.modal{background:var(--sidebar);border:1px solid var(--border);border-radius:20px;padding:28px;width:400px}
+.modal{background:var(--sidebar);border:1px solid var(--border);border-radius:20px;padding:28px;width:100%;max-width:400px}
 .modal h3{font-size:18px;font-weight:600;margin-bottom:18px}
 .s-res{margin-top:10px;display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto}
 .ri{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg);border-radius:10px}
@@ -129,6 +130,17 @@ button{font-family:var(--font)}
 .notif.ok{border-color:rgba(34,197,94,.3);color:var(--green)}
 .notif.err{border-color:rgba(248,113,113,.3);color:var(--red)}
 .badge{background:var(--accent);color:#fff;font-size:10px;font-weight:600;border-radius:10px;padding:1px 6px;margin-left:5px}
+
+/* ── RESPONSIVE MOBILE ── */
+@media(max-width: 768px) {
+  .sb{position:absolute;z-index:10;left:0;top:0;height:100%;width:100%;border-right:none}
+  .ca{width:100%;height:100%}
+  .back-btn{display:flex;margin-right:4px} /* Affiché sur mobile */
+  
+  /* Mode Vue Chat active : on masque la sidebar */
+  #app.chat-active .sb { transform: translateX(-100%); pointer-events: none; }
+  #app.chat-active .ca { display: flex !important; }
+}
 </style>
 </head>
 <body>
@@ -208,6 +220,9 @@ button{font-family:var(--font)}
     </div>
     <div id="chat-view" style="display:none;flex:1;flex-direction:column;min-height:0">
       <div class="ch">
+        <button class="ib back-btn" onclick="closeChatMobile()" title="Retour">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        </button>
         <div class="av md grp" id="ch-av">👥</div>
         <div class="ch-info">
           <h2 id="ch-name">-</h2>
@@ -308,6 +323,12 @@ function switchSbTab(t) {
   else loadConversations()
 }
 
+// ── FONCTIONS DE NAVIGATION MOBILE ──
+function closeChatMobile() {
+  document.getElementById('app').classList.remove('chat-active')
+  curConv = null
+}
+
 // ── CONNECTER UN UTILISATEUR PAR PSEUDO ──
 async function doLogin() {
   const username = document.getElementById('l-user').value.trim().toLowerCase()
@@ -354,7 +375,7 @@ function doLogout() {
   localStorage.removeItem('chat_session')
   myProfile = null; curConv = null
   if (msgSub) sb.removeChannel(msgSub)
-  document.getElementById('app').classList.remove('on')
+  document.getElementById('app').classList.remove('on', 'chat-active')
   document.getElementById('auth').style.display = 'flex'
 }
 
@@ -404,6 +425,9 @@ async function openConv(id, name, isGroup, members) {
   document.getElementById('chat-view').style.display = 'flex'
   document.getElementById('ch-name').textContent = name
   document.getElementById('ch-sub').textContent = isGroup ? `${members.length} membres` : 'Discussion privée'
+  
+  // Active l'état chat sur mobile
+  document.getElementById('app').classList.add('chat-active')
 
   await loadMessages(id)
 
