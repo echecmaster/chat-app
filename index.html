@@ -21,7 +21,7 @@ button{font-family:var(--font)}
 
 /* ── AUTH ── */
 #auth{display:flex;align-items:center;justify-content:center;height:100vh;background:radial-gradient(ellipse at 30% 20%,rgba(124,92,252,.12),transparent 60%),var(--bg)}
-.auth-card{background:var(--sidebar);border:1px solid var(--border);border-radius:20px;padding:40px;width:400px}
+.auth-card{background:var(--sidebar);border:1px solid var(--border);border-radius:20px;padding:40px;width:420px}
 .auth-logo{font-size:26px;font-weight:600;margin-bottom:6px;background:linear-gradient(135deg,#a78bfa,#7c5cfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .auth-sub{color:var(--muted);font-size:14px;margin-bottom:28px}
 .auth-tabs{display:flex;gap:4px;background:var(--bg);border-radius:10px;padding:4px;margin-bottom:24px}
@@ -38,18 +38,31 @@ button{font-family:var(--font)}
 .auth-form.active{display:block}
 .err{color:var(--red);font-size:13px;margin-top:10px;text-align:center;min-height:18px}
 
+/* ── EMOJI PICKER dans l'inscription ── */
+.emoji-label{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;display:block}
+.emoji-grid{display:flex;flex-wrap:wrap;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px}
+.ep-btn{font-size:22px;width:40px;height:40px;background:none;border:2px solid transparent;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.ep-btn:hover{background:rgba(124,92,252,.15)}
+.ep-btn.selected{border-color:var(--accent);background:rgba(124,92,252,.2)}
+
 /* ── APP ── */
 #app{display:none;height:100vh;flex-direction:row}
 #app.on{display:flex}
 
 /* ── SIDEBAR ── */
 .sb{width:280px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
-.sb-head{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
-.av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;color:#fff;flex-shrink:0;background:var(--accent)}
-.av.sm{width:30px;height:30px;font-size:12px}
-.av.md{width:36px;height:36px;font-size:14px}
-.av.grp{border-radius:10px;background:linear-gradient(135deg,#4f46e5,#7c5cfc);font-size:15px}
-.sb-name{font-size:14px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.sb-user-info{flex:1;min-width:0}
+.sb-username{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.sb-status{font-size:11px;color:var(--green);font-weight:500}
+
+/* ── AVATAR EMOJI ── */
+.av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:rgba(124,92,252,.15);border:2px solid rgba(124,92,252,.25)}
+.av.sm{width:30px;height:30px;font-size:16px}
+.av.md{width:36px;height:36px;font-size:20px}
+.av.lg{width:44px;height:44px;font-size:26px}
+.av.grp{border-radius:10px;background:rgba(79,70,229,.2);border-color:rgba(79,70,229,.35);font-size:16px}
+
 .ib{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:5px;border-radius:6px;transition:color .15s,background .15s;line-height:1;display:flex;align-items:center;justify-content:center}
 .ib:hover{color:var(--text);background:rgba(255,255,255,.06)}
 .sb-tabs{display:flex;gap:4px;padding:10px 12px}
@@ -97,7 +110,8 @@ button{font-family:var(--font)}
 .msg{display:flex;flex-direction:column;max-width:62%}
 .msg.s{align-self:flex-end;align-items:flex-end}
 .msg.r{align-self:flex-start;align-items:flex-start}
-.msg-who{font-size:11px;color:var(--muted);margin-bottom:2px;padding:0 3px}
+.msg-who{font-size:11px;color:var(--muted);margin-bottom:2px;padding:0 3px;display:flex;align-items:center;gap:4px}
+.msg-who-emoji{font-size:13px}
 .msg-b{padding:9px 13px;border-radius:14px;font-size:14px;line-height:1.5;word-break:break-word}
 .msg.s .msg-b{background:var(--accent);color:#fff;border-bottom-right-radius:3px}
 .msg.r .msg-b{background:var(--panel);color:var(--text);border-bottom-left-radius:3px}
@@ -136,6 +150,17 @@ button{font-family:var(--font)}
 .notif.ok{border-color:rgba(34,197,94,.3);color:var(--green)}
 .notif.err{border-color:rgba(248,113,113,.3);color:var(--red)}
 .badge{background:var(--accent);color:#fff;font-size:10px;font-weight:600;border-radius:10px;padding:1px 6px;min-width:16px;text-align:center}
+
+/* ── MODAL PROFIL ── */
+.profile-modal-av{font-size:52px;text-align:center;margin-bottom:10px;line-height:1}
+.profile-modal-name{text-align:center;font-size:20px;font-weight:600;margin-bottom:4px}
+.profile-modal-sub{text-align:center;color:var(--muted);font-size:13px;margin-bottom:20px}
+.profile-edit-section{background:var(--bg);border-radius:12px;padding:14px;margin-bottom:14px}
+.profile-edit-section label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;display:block}
+.ep-grid{display:flex;flex-wrap:wrap;gap:6px}
+.ep-pick{font-size:22px;width:38px;height:38px;background:none;border:2px solid transparent;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.ep-pick:hover{background:rgba(124,92,252,.15)}
+.ep-pick.sel{border-color:var(--accent);background:rgba(124,92,252,.2)}
 </style>
 </head>
 <body>
@@ -161,6 +186,11 @@ button{font-family:var(--font)}
       <div class="fg"><label>Nom d'utilisateur</label><input id="r-user" type="text" placeholder="monpseudo" maxlength="20"></div>
       <div class="fg"><label>Email</label><input id="r-email" type="email" placeholder="toi@example.com"></div>
       <div class="fg"><label>Mot de passe</label><input id="r-pass" type="password" placeholder="••••••••" minlength="6"></div>
+      <div class="fg">
+        <span class="emoji-label">Choisis ton emoji de profil</span>
+        <div class="emoji-grid" id="reg-emoji-grid"></div>
+        <input type="hidden" id="r-emoji" value="😊">
+      </div>
       <button class="btn-main" onclick="doRegister()">Créer mon compte</button>
       <div class="err" id="r-err"></div>
     </div>
@@ -172,8 +202,12 @@ button{font-family:var(--font)}
   <!-- SIDEBAR -->
   <div class="sb">
     <div class="sb-head">
-      <div class="av md" id="my-av">?</div>
-      <span class="sb-name" id="my-name">...</span>
+      <!-- Clic sur l'avatar ouvre le profil -->
+      <div class="av md" id="my-av" style="cursor:pointer" title="Mon profil" onclick="openProfileModal()">😊</div>
+      <div class="sb-user-info">
+        <div class="sb-username" id="my-name">...</div>
+        <div class="sb-status">● En ligne</div>
+      </div>
       <button class="ib" title="Déconnexion" onclick="doLogout()">
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       </button>
@@ -215,9 +249,9 @@ button{font-family:var(--font)}
       <h2>Bienvenue !</h2>
       <p>Sélectionne une conversation ou commence à discuter</p>
     </div>
-    <div id="chat-view" style="display:none;flex:1;display:none;flex-direction:column;min-height:0">
+    <div id="chat-view" style="display:none;flex:1;flex-direction:column;min-height:0">
       <div class="ch">
-        <div class="av md grp" id="ch-av">G</div>
+        <div class="av md grp" id="ch-av">👥</div>
         <div class="ch-info">
           <h2 id="ch-name">-</h2>
           <p id="ch-sub">-</p>
@@ -268,228 +302,348 @@ button{font-family:var(--font)}
   </div>
 </div>
 
+<!-- ════════════════ MODAL : MON PROFIL ════════════════ -->
+<div class="ov" id="ov-profile">
+  <div class="modal">
+    <div class="profile-modal-av" id="pm-emoji">😊</div>
+    <div class="profile-modal-name" id="pm-name">pseudo</div>
+    <div class="profile-modal-sub">Mon profil</div>
+    <div class="profile-edit-section">
+      <label>Changer mon emoji</label>
+      <div class="ep-grid" id="profile-emoji-grid"></div>
+    </div>
+    <div class="ma">
+      <button class="bcan" onclick="closeModal('ov-profile')">Fermer</button>
+      <button class="bconf" onclick="saveProfileEmoji()">💾 Sauvegarder</button>
+    </div>
+  </div>
+</div>
+
 <!-- NOTIF TOAST -->
 <div class="notif" id="notif"></div>
 
 <script>
+// ── CONFIG SUPABASE ──
 const SURL = 'https://igzdsflctvaktluwwrle.supabase.co'
 const SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlnemRzZmxjdHZha3RsdXd3cmxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzNzIwOTksImV4cCI6MjA5NDk0ODA5OX0.xgPoiXX59NU46F66HXtM0z286gAJxM1BVsgDF7zPkzY'
 const sb = supabase.createClient(SURL, SKEY)
 
 let me = null        // {id, email}
-let myProfile = null // {id, username}
+let myProfile = null // {id, username, avatar_emoji}
 let curConv = null   // {id, name, isGroup, members}
 let msgSub = null
 let friendSub = null
+let selectedProfileEmoji = '😊'
 
-const COLORS = ['#7c5cfc','#4f46e5','#0891b2','#059669','#dc2626','#d97706','#db2777','#7c3aed']
-function avColor(str){let h=0;for(let c of str)h=(h<<5)-h+c.charCodeAt(0);return COLORS[Math.abs(h)%COLORS.length]}
-function avLetter(name){return name.charAt(0).toUpperCase()}
-function timeFmt(ts){const d=new Date(ts),n=new Date();const s=Math.floor((n-d)/1000);if(s<60)return 'à l\'instant';if(s<3600)return`${Math.floor(s/60)}min`;if(s<86400)return d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'})}
-function fullTime(ts){return new Date(ts).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}
-function dateFmt(ts){return new Date(ts).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})}
+// ── LISTE D'EMOJIS DISPONIBLES ──
+const EMOJIS = [
+  '😊','😎','🤩','🥳','😍','🤔','😴','🥺',
+  '😂','🔥','⚡','🌈','🦄','🐉','🦊','🐧',
+  '🎮','🎯','🎸','🎨','📚','🚀','🌙','⭐',
+  '🍕','🍦','🍜','🧃','💎','🏆','💡','🤖'
+]
 
-function toast(msg,type='ok'){const n=document.getElementById('notif');n.textContent=msg;n.className='notif show '+(type==='ok'?'ok':'err');setTimeout(()=>n.classList.remove('show'),3000)}
-function setErr(id,msg){const el=document.getElementById(id);if(el){el.textContent=msg}}
+// ── RENDU EMOJI GRIDS ──
+function buildEmojiGrid(containerId, inputId, defaultEmoji='😊') {
+  const grid = document.getElementById(containerId)
+  grid.innerHTML = ''
+  EMOJIS.forEach(e => {
+    const btn = document.createElement('button')
+    btn.type = 'button'
+    btn.className = 'ep-btn' + (e === defaultEmoji ? ' selected' : '')
+    btn.textContent = e
+    btn.onclick = () => {
+      grid.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('selected'))
+      btn.classList.add('selected')
+      if (inputId) document.getElementById(inputId).value = e
+    }
+    grid.appendChild(btn)
+  })
+}
+
+function buildProfileEmojiGrid(current) {
+  selectedProfileEmoji = current || '😊'
+  const grid = document.getElementById('profile-emoji-grid')
+  grid.innerHTML = ''
+  EMOJIS.forEach(e => {
+    const btn = document.createElement('button')
+    btn.type = 'button'
+    btn.className = 'ep-pick' + (e === selectedProfileEmoji ? ' sel' : '')
+    btn.textContent = e
+    btn.onclick = () => {
+      grid.querySelectorAll('.ep-pick').forEach(b => b.classList.remove('sel'))
+      btn.classList.add('sel')
+      selectedProfileEmoji = e
+      document.getElementById('pm-emoji').textContent = e
+    }
+    grid.appendChild(btn)
+  })
+}
+
+// ── UTILS ──
+function toast(msg, type='ok') {
+  const n = document.getElementById('notif')
+  n.textContent = msg
+  n.className = 'notif show ' + (type === 'ok' ? 'ok' : 'err')
+  setTimeout(() => n.classList.remove('show'), 3000)
+}
+function setErr(id, msg) {
+  const el = document.getElementById(id)
+  if (el) el.textContent = msg
+}
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+}
+function timeFmt(ts) {
+  const d = new Date(ts), n = new Date()
+  const s = Math.floor((n - d) / 1000)
+  if (s < 60) return 'à l\'instant'
+  if (s < 3600) return `${Math.floor(s/60)}min`
+  if (s < 86400) return d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})
+  return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'})
+}
+function fullTime(ts) { return new Date(ts).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}) }
+function dateFmt(ts) { return new Date(ts).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}) }
+function closeModal(id) { document.getElementById(id).classList.remove('on') }
+document.querySelectorAll('.ov').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('on') }))
 
 // ── TAB SWITCHING ──
-function switchTab(t){
-  document.querySelectorAll('.auth-tab').forEach((b,i)=>b.classList.toggle('active',i===(t==='login'?0:1)))
-  document.getElementById('form-login').classList.toggle('active',t==='login')
-  document.getElementById('form-register').classList.toggle('active',t==='register')
+function switchTab(t) {
+  document.querySelectorAll('.auth-tab').forEach((b,i) => b.classList.toggle('active', i === (t === 'login' ? 0 : 1)))
+  document.getElementById('form-login').classList.toggle('active', t === 'login')
+  document.getElementById('form-register').classList.toggle('active', t === 'register')
   setErr('l-err',''); setErr('r-err','')
+  if (t === 'register') buildEmojiGrid('reg-emoji-grid','r-emoji','😊')
 }
-function switchSbTab(t){
-  document.querySelectorAll('.sb-tab').forEach((b,i)=>b.classList.toggle('active',i===(t==='chats'?0:1)))
-  document.getElementById('panel-chats').classList.toggle('on',t==='chats')
-  document.getElementById('panel-friends').classList.toggle('on',t==='friends')
-  if(t==='friends'){loadFriends();loadRequests()}
+function switchSbTab(t) {
+  document.querySelectorAll('.sb-tab').forEach((b,i) => b.classList.toggle('active', i === (t === 'chats' ? 0 : 1)))
+  document.getElementById('panel-chats').classList.toggle('on', t === 'chats')
+  document.getElementById('panel-friends').classList.toggle('on', t === 'friends')
+  if (t === 'friends') { loadFriends(); loadRequests() }
   else loadConversations()
 }
 
 // ── AUTH ──
-async function doLogin(){
-  const email=document.getElementById('l-email').value.trim()
-  const pass=document.getElementById('l-pass').value
-  if(!email||!pass){setErr('l-err','Remplis tous les champs');return}
-  const {data,error}=await sb.auth.signInWithPassword({email,password:pass})
-  if(error){setErr('l-err',error.message);return}
-  me=data.user
+async function doLogin() {
+  const email = document.getElementById('l-email').value.trim()
+  const pass = document.getElementById('l-pass').value
+  if (!email || !pass) { setErr('l-err','Remplis tous les champs'); return }
+  const {data, error} = await sb.auth.signInWithPassword({email, password: pass})
+  if (error) { setErr('l-err', error.message); return }
+  me = data.user
   await loadMyProfile()
   showApp()
 }
-async function doRegister(){
-  const username=document.getElementById('r-user').value.trim().toLowerCase()
-  const email=document.getElementById('r-email').value.trim()
-  const pass=document.getElementById('r-pass').value
-  if(!username||!email||!pass){setErr('r-err','Remplis tous les champs');return}
-  if(!/^[a-z0-9_]{2,20}$/.test(username)){setErr('r-err','Pseudo : 2-20 caractères, lettres/chiffres/_');return}
-  // Check username
-  const {data:ex}=await sb.from('profiles').select('id').eq('username',username).maybeSingle()
-  if(ex){setErr('r-err','Ce pseudo est déjà pris');return}
-  const {data,error}=await sb.auth.signUp({email,password:pass})
-  if(error){setErr('r-err',error.message);return}
-  if(!data.user){setErr('r-err','Vérifie ta boîte mail pour confirmer');return}
-  await sb.from('profiles').insert({id:data.user.id,username})
-  me=data.user
-  myProfile={id:me.id,username}
+
+async function doRegister() {
+  const username = document.getElementById('r-user').value.trim().toLowerCase()
+  const email    = document.getElementById('r-email').value.trim()
+  const pass     = document.getElementById('r-pass').value
+  const emoji    = document.getElementById('r-emoji').value || '😊'
+  if (!username || !email || !pass) { setErr('r-err','Remplis tous les champs'); return }
+  if (!/^[a-z0-9_]{2,20}$/.test(username)) { setErr('r-err','Pseudo : 2-20 caractères, lettres/chiffres/_'); return }
+  // Vérif pseudo dispo
+  const {data: ex} = await sb.from('profiles').select('id').eq('username', username).maybeSingle()
+  if (ex) { setErr('r-err','Ce pseudo est déjà pris'); return }
+  const {data, error} = await sb.auth.signUp({email, password: pass})
+  if (error) { setErr('r-err', error.message); return }
+  if (!data.user) { setErr('r-err','Vérifie ta boîte mail pour confirmer'); return }
+  // Créer le profil avec l'emoji choisi — stocké dans Supabase (cloud)
+  await sb.from('profiles').insert({id: data.user.id, username, avatar_emoji: emoji})
+  me = data.user
+  myProfile = {id: me.id, username, avatar_emoji: emoji}
   showApp()
 }
-async function doLogout(){
+
+async function doLogout() {
   await sb.auth.signOut()
-  me=null; myProfile=null; curConv=null
-  if(msgSub)sb.removeChannel(msgSub)
-  if(friendSub)sb.removeChannel(friendSub)
+  me = null; myProfile = null; curConv = null
+  if (msgSub) sb.removeChannel(msgSub)
+  if (friendSub) sb.removeChannel(friendSub)
   document.getElementById('app').classList.remove('on')
-  document.getElementById('auth').style.display='flex'
-}
-async function loadMyProfile(){
-  const {data}=await sb.from('profiles').select('*').eq('id',me.id).single()
-  myProfile=data
+  document.getElementById('auth').style.display = 'flex'
 }
 
-// ── SHOW APP ──
-function showApp(){
-  document.getElementById('auth').style.display='none'
+async function loadMyProfile() {
+  const {data} = await sb.from('profiles').select('*').eq('id', me.id).single()
+  myProfile = data
+}
+
+// ── MODAL PROFIL ──
+function openProfileModal() {
+  if (!myProfile) return
+  document.getElementById('pm-emoji').textContent = myProfile.avatar_emoji || '😊'
+  document.getElementById('pm-name').textContent = myProfile.username
+  buildProfileEmojiGrid(myProfile.avatar_emoji || '😊')
+  document.getElementById('ov-profile').classList.add('on')
+}
+
+async function saveProfileEmoji() {
+  if (!myProfile) return
+  const {error} = await sb.from('profiles').update({avatar_emoji: selectedProfileEmoji}).eq('id', me.id)
+  if (error) { toast('Erreur : ' + error.message, 'err'); return }
+  myProfile.avatar_emoji = selectedProfileEmoji
+  document.getElementById('my-av').textContent = selectedProfileEmoji
+  closeModal('ov-profile')
+  toast('Profil mis à jour ! ✨')
+}
+
+// ── SHOW APP — affiche le pseudo et l'emoji en haut à gauche ──
+function showApp() {
+  document.getElementById('auth').style.display = 'none'
   document.getElementById('app').classList.add('on')
-  const a=document.getElementById('my-av')
-  a.textContent=avLetter(myProfile.username)
-  a.style.background=avColor(myProfile.username)
-  document.getElementById('my-name').textContent=myProfile.username
+  const emoji = myProfile.avatar_emoji || '😊'
+  document.getElementById('my-av').textContent = emoji
+  document.getElementById('my-name').textContent = myProfile.username
   loadConversations()
   subscribeToFriendRequests()
 }
 
 // ── CONVERSATIONS ──
-async function loadConversations(){
-  const cl=document.getElementById('conv-list')
-  cl.innerHTML='<div class="empty-state">Chargement…</div>'
-  // Get my conversation IDs
-  const {data:memberships}=await sb.from('conversation_members')
-    .select('conversation_id').eq('user_id',me.id)
-  if(!memberships||!memberships.length){cl.innerHTML='<div class="empty-state">Aucune conversation</div>';return}
-  const ids=memberships.map(m=>m.conversation_id)
-  // Get conversations
-  const {data:convs}=await sb.from('conversations').select('*').in('id',ids).order('created_at',{ascending:false})
-  if(!convs||!convs.length){cl.innerHTML='<div class="empty-state">Aucune conversation</div>';return}
-  // Get all members for these convs
-  const {data:allMembers}=await sb.from('conversation_members')
-    .select('conversation_id,user_id,profiles(id,username)').in('conversation_id',ids)
-  // Get last messages
-  const {data:lastMsgs}=await sb.from('messages').select('*').in('conversation_id',ids)
-  cl.innerHTML=''
-  for(const conv of convs){
-    const members=(allMembers||[]).filter(m=>m.conversation_id===conv.id)
-    const others=members.filter(m=>m.user_id!==me.id).map(m=>m.profiles)
-    let name=conv.name
-    if(!conv.is_group&&others.length>0)name=others[0].username
-    else if(!name)name='Groupe'
-    const convMsgs=(lastMsgs||[]).filter(m=>m.conversation_id===conv.id)
-    convMsgs.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at))
-    const last=convMsgs[0]
-    const preview=last?(last.sender_id===me.id?`Toi : ${last.content}`:last.content):'Aucun message'
-    const el=document.createElement('div')
-    el.className='ci'+(curConv&&curConv.id===conv.id?' on':'')
-    el.onclick=()=>openConv(conv.id,name,conv.is_group,members)
-    el.innerHTML=`
-      <div class="av ${conv.is_group?'grp':'md'}" style="${!conv.is_group&&others[0]?`background:${avColor(others[0].username)}`:''}">
-        ${conv.is_group?'👥':avLetter(name)}
-      </div>
+async function loadConversations() {
+  const cl = document.getElementById('conv-list')
+  cl.innerHTML = '<div class="empty-state">Chargement…</div>'
+  const {data: memberships} = await sb.from('conversation_members')
+    .select('conversation_id').eq('user_id', me.id)
+  if (!memberships || !memberships.length) {
+    cl.innerHTML = '<div class="empty-state">Aucune conversation</div>'
+    return
+  }
+  const ids = memberships.map(m => m.conversation_id)
+  const {data: convs} = await sb.from('conversations').select('*').in('id', ids).order('created_at', {ascending: false})
+  if (!convs || !convs.length) { cl.innerHTML = '<div class="empty-state">Aucune conversation</div>'; return }
+  const {data: allMembers} = await sb.from('conversation_members')
+    .select('conversation_id,user_id,profiles(id,username,avatar_emoji)').in('conversation_id', ids)
+  const {data: lastMsgs} = await sb.from('messages').select('*').in('conversation_id', ids)
+  cl.innerHTML = ''
+  for (const conv of convs) {
+    const members = (allMembers || []).filter(m => m.conversation_id === conv.id)
+    const others = members.filter(m => m.user_id !== me.id).map(m => m.profiles)
+    let name = conv.name
+    if (!conv.is_group && others.length > 0) name = others[0].username
+    else if (!name) name = 'Groupe'
+    const convMsgs = (lastMsgs || []).filter(m => m.conversation_id === conv.id)
+    convMsgs.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
+    const last = convMsgs[0]
+    const preview = last ? (last.sender_id === me.id ? `Toi : ${last.content}` : last.content) : 'Aucun message'
+    // Emoji de l'autre personne (DM) ou icône groupe
+    const otherEmoji = (!conv.is_group && others[0]) ? (others[0].avatar_emoji || '😊') : '👥'
+    const el = document.createElement('div')
+    el.className = 'ci' + (curConv && curConv.id === conv.id ? ' on' : '')
+    el.onclick = () => openConv(conv.id, name, conv.is_group, members)
+    el.innerHTML = `
+      <div class="av ${conv.is_group ? 'grp' : 'md'}">${otherEmoji}</div>
       <div class="ci-info">
         <div class="ci-name">${esc(name)}</div>
-        <div class="ci-prev">${esc(preview.substring(0,40))}</div>
+        <div class="ci-prev">${esc(preview.substring(0, 40))}</div>
       </div>
     `
     cl.appendChild(el)
   }
 }
 
-async function openConv(id,name,isGroup,members){
-  curConv={id,name,isGroup,members}
-  document.getElementById('welcome').style.display='none'
-  const cv=document.getElementById('chat-view')
-  cv.style.display='flex'
-  // Update header
-  const av=document.getElementById('ch-av')
-  av.textContent=isGroup?'👥':avLetter(name)
-  av.className='av md'+(isGroup?' grp':'')
-  if(!isGroup)av.style.background=avColor(name)
-  document.getElementById('ch-name').textContent=name
-  const memberNames=(members||[]).filter(m=>m.user_id!==me.id).map(m=>m.profiles?.username).filter(Boolean)
-  document.getElementById('ch-sub').textContent=isGroup?`${members.length} membres`:(memberNames[0]||'')
+async function openConv(id, name, isGroup, members) {
+  curConv = {id, name, isGroup, members}
+  document.getElementById('welcome').style.display = 'none'
+  const cv = document.getElementById('chat-view')
+  cv.style.display = 'flex'
+  // Header
+  const av = document.getElementById('ch-av')
+  if (isGroup) {
+    av.textContent = '👥'
+    av.className = 'av md grp'
+  } else {
+    const others = (members || []).filter(m => m.user_id !== me.id).map(m => m.profiles)
+    av.textContent = (others[0] && others[0].avatar_emoji) ? others[0].avatar_emoji : '😊'
+    av.className = 'av md'
+    av.style.background = ''
+  }
+  document.getElementById('ch-name').textContent = name
+  const memberNames = (members || []).filter(m => m.user_id !== me.id).map(m => m.profiles?.username).filter(Boolean)
+  document.getElementById('ch-sub').textContent = isGroup ? `${members.length} membres` : (memberNames[0] || '')
   // Highlight sidebar
-  document.querySelectorAll('.ci').forEach(c=>c.classList.remove('on'))
-  document.querySelectorAll('.ci').forEach(c=>{if(c.onclick.toString().includes(id))c.classList.add('on')})
-  // Load messages
+  document.querySelectorAll('.ci').forEach(c => c.classList.remove('on'))
+  document.querySelectorAll('.ci').forEach(c => { if (c.onclick.toString().includes(id)) c.classList.add('on') })
   await loadMessages(id)
-  // Subscribe
-  if(msgSub)sb.removeChannel(msgSub)
-  msgSub=sb.channel('msgs:'+id)
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`conversation_id=eq.${id}`},p=>{
+  if (msgSub) sb.removeChannel(msgSub)
+  msgSub = sb.channel('msgs:' + id)
+    .on('postgres_changes', {event:'INSERT', schema:'public', table:'messages', filter:`conversation_id=eq.${id}`}, p => {
       appendMsg(p.new)
     })
     .subscribe()
   document.getElementById('msg-inp').focus()
 }
 
-async function loadMessages(convId){
-  const box=document.getElementById('msgs')
-  box.innerHTML='<div class="empty-state">Chargement…</div>'
-  const {data:msgs}=await sb.from('messages').select('*,profiles(username)').eq('conversation_id',convId).order('created_at')
-  box.innerHTML=''
-  if(!msgs||!msgs.length){box.innerHTML='<div class="empty-state">Aucun message. Dis bonjour ! 👋</div>';return}
-  let lastDate=null
-  for(const m of msgs){
-    const d=new Date(m.created_at).toDateString()
-    if(d!==lastDate){const s=document.createElement('div');s.className='dsep';s.textContent=dateFmt(m.created_at);box.appendChild(s);lastDate=d}
-    appendMsg(m,false)
+async function loadMessages(convId) {
+  const box = document.getElementById('msgs')
+  box.innerHTML = '<div class="empty-state">Chargement…</div>'
+  const {data: msgs} = await sb.from('messages')
+    .select('*,profiles(username,avatar_emoji)')
+    .eq('conversation_id', convId).order('created_at')
+  box.innerHTML = ''
+  if (!msgs || !msgs.length) { box.innerHTML = '<div class="empty-state">Aucun message. Dis bonjour ! 👋</div>'; return }
+  let lastDate = null
+  for (const m of msgs) {
+    const d = new Date(m.created_at).toDateString()
+    if (d !== lastDate) {
+      const s = document.createElement('div')
+      s.className = 'dsep'
+      s.textContent = dateFmt(m.created_at)
+      box.appendChild(s)
+      lastDate = d
+    }
+    appendMsg(m, false)
   }
-  box.scrollTop=box.scrollHeight
+  box.scrollTop = box.scrollHeight
 }
 
-function appendMsg(m,scroll=true){
-  const box=document.getElementById('msgs')
-  const isMine=m.sender_id===me.id
-  // Remove empty state if present
-  const es=box.querySelector('.empty-state')
-  if(es)es.remove()
-  const el=document.createElement('div')
-  el.className='msg '+(isMine?'s':'r')
-  const senderName=m.profiles?.username||'?'
-  el.innerHTML=`
-    ${!isMine&&curConv?.isGroup?`<div class="msg-who">${esc(senderName)}</div>`:''}
+function appendMsg(m, scroll=true) {
+  const box = document.getElementById('msgs')
+  const isMine = m.sender_id === me.id
+  const es = box.querySelector('.empty-state')
+  if (es) es.remove()
+  const el = document.createElement('div')
+  el.className = 'msg ' + (isMine ? 's' : 'r')
+  const senderName = m.profiles?.username || '?'
+  const senderEmoji = m.profiles?.avatar_emoji || '😊'
+  // Dans les groupes, affiche l'emoji + pseudo de l'expéditeur
+  const whoHtml = (!isMine && curConv?.isGroup)
+    ? `<div class="msg-who"><span class="msg-who-emoji">${esc(senderEmoji)}</span>${esc(senderName)}</div>`
+    : ''
+  el.innerHTML = `
+    ${whoHtml}
     <div class="msg-b">${esc(m.content)}</div>
     <div class="msg-t">${fullTime(m.created_at)}</div>
   `
   box.appendChild(el)
-  if(scroll)box.scrollTop=box.scrollHeight
+  if (scroll) box.scrollTop = box.scrollHeight
 }
 
-async function sendMsg(){
-  const inp=document.getElementById('msg-inp')
-  const content=inp.value.trim()
-  if(!content||!curConv)return
-  inp.value=''
-  await sb.from('messages').insert({conversation_id:curConv.id,sender_id:me.id,content})
+async function sendMsg() {
+  const inp = document.getElementById('msg-inp')
+  const content = inp.value.trim()
+  if (!content || !curConv) return
+  inp.value = ''
+  await sb.from('messages').insert({conversation_id: curConv.id, sender_id: me.id, content})
 }
 
-// ── FRIENDS ──
-async function loadFriends(){
-  const fl=document.getElementById('friend-list')
-  fl.innerHTML=''
-  const {data}=await sb.from('friendships')
-    .select('*,requester:requester_id(id,username),addressee:addressee_id(id,username)')
+// ── AMIS ──
+async function loadFriends() {
+  const fl = document.getElementById('friend-list')
+  fl.innerHTML = ''
+  const {data} = await sb.from('friendships')
+    .select('*,requester:requester_id(id,username,avatar_emoji),addressee:addressee_id(id,username,avatar_emoji)')
     .eq('status','accepted')
     .or(`requester_id.eq.${me.id},addressee_id.eq.${me.id}`)
-  if(!data||!data.length){fl.innerHTML='<div class="empty-state">Aucun ami pour l\'instant</div>';return}
-  for(const f of data){
-    const friend=f.requester_id===me.id?f.addressee:f.requester
-    if(!friend)continue
-    const el=document.createElement('div')
-    el.className='fi'
-    el.onclick=()=>startDM(friend)
-    el.innerHTML=`
-      <div class="av sm" style="background:${avColor(friend.username)}">${avLetter(friend.username)}</div>
+  if (!data || !data.length) { fl.innerHTML = '<div class="empty-state">Aucun ami pour l\'instant</div>'; return }
+  for (const f of data) {
+    const friend = f.requester_id === me.id ? f.addressee : f.requester
+    if (!friend) continue
+    const el = document.createElement('div')
+    el.className = 'fi'
+    el.onclick = () => startDM(friend)
+    el.innerHTML = `
+      <div class="av sm">${esc(friend.avatar_emoji || '😊')}</div>
       <span style="font-size:14px;font-weight:500">${esc(friend.username)}</span>
       <div class="dot" style="margin-left:auto"></div>
     `
@@ -497,18 +651,19 @@ async function loadFriends(){
   }
 }
 
-async function loadRequests(){
-  const rl=document.getElementById('req-list')
-  rl.innerHTML=''
-  const {data}=await sb.from('friendships')
-    .select('*,requester:requester_id(id,username)')
-    .eq('addressee_id',me.id).eq('status','pending')
-  if(!data||!data.length){rl.innerHTML='<div class="empty-state" style="padding:8px 16px">Aucune demande</div>';return}
-  for(const r of data){
-    const el=document.createElement('div');el.className='req'
-    el.innerHTML=`
+async function loadRequests() {
+  const rl = document.getElementById('req-list')
+  rl.innerHTML = ''
+  const {data} = await sb.from('friendships')
+    .select('*,requester:requester_id(id,username,avatar_emoji)')
+    .eq('addressee_id', me.id).eq('status','pending')
+  if (!data || !data.length) { rl.innerHTML = '<div class="empty-state" style="padding:8px 16px">Aucune demande</div>'; return }
+  for (const r of data) {
+    const el = document.createElement('div')
+    el.className = 'req'
+    el.innerHTML = `
       <div class="req-top">
-        <div class="av sm" style="background:${avColor(r.requester.username)}">${avLetter(r.requester.username)}</div>
+        <div class="av sm">${esc(r.requester.avatar_emoji || '😊')}</div>
         <div><div class="req-name">${esc(r.requester.username)}</div><div class="req-sub">Demande d'ami</div></div>
       </div>
       <div class="req-btns">
@@ -518,155 +673,163 @@ async function loadRequests(){
     `
     rl.appendChild(el)
   }
-  // Update badge
-  const tab=document.getElementById('tab-friends')
-  if(data.length>0){
-    if(!tab.querySelector('.badge')){const b=document.createElement('span');b.className='badge';b.id='req-badge';b.style.marginLeft='5px';tab.appendChild(b)}
-    document.getElementById('req-badge').textContent=data.length
-  }else{const b=document.getElementById('req-badge');if(b)b.remove()}
+  const tab = document.getElementById('tab-friends')
+  if (data.length > 0) {
+    if (!tab.querySelector('.badge')) {
+      const b = document.createElement('span')
+      b.className = 'badge'; b.id = 'req-badge'; b.style.marginLeft = '5px'
+      tab.appendChild(b)
+    }
+    document.getElementById('req-badge').textContent = data.length
+  } else {
+    const b = document.getElementById('req-badge'); if (b) b.remove()
+  }
 }
 
-async function acceptReq(id){
-  await sb.from('friendships').update({status:'accepted'}).eq('id',id)
+async function acceptReq(id) {
+  await sb.from('friendships').update({status:'accepted'}).eq('id', id)
   toast('Ami ajouté ! 🎉')
   loadRequests(); loadFriends()
 }
-async function rejectReq(id){
-  await sb.from('friendships').delete().eq('id',id)
+async function rejectReq(id) {
+  await sb.from('friendships').delete().eq('id', id)
   loadRequests()
 }
 
-function subscribeToFriendRequests(){
-  if(friendSub)sb.removeChannel(friendSub)
-  friendSub=sb.channel('friend-req:'+me.id)
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'friendships',filter:`addressee_id=eq.${me.id}`},p=>{
-      const panel=document.getElementById('panel-friends')
-      if(panel.classList.contains('on')){loadRequests()}
-      const tab=document.getElementById('tab-friends')
-      if(!tab.querySelector('.badge')){const b=document.createElement('span');b.className='badge';b.id='req-badge';b.style.marginLeft='5px';tab.appendChild(b)}
-      const existing=document.getElementById('req-badge')
-      if(existing)existing.textContent=parseInt(existing.textContent||'0')+1
+function subscribeToFriendRequests() {
+  if (friendSub) sb.removeChannel(friendSub)
+  friendSub = sb.channel('friend-req:' + me.id)
+    .on('postgres_changes', {event:'INSERT', schema:'public', table:'friendships', filter:`addressee_id=eq.${me.id}`}, p => {
+      const panel = document.getElementById('panel-friends')
+      if (panel.classList.contains('on')) loadRequests()
+      const tab = document.getElementById('tab-friends')
+      if (!tab.querySelector('.badge')) {
+        const b = document.createElement('span')
+        b.className = 'badge'; b.id = 'req-badge'; b.style.marginLeft = '5px'
+        tab.appendChild(b)
+      }
+      const existing = document.getElementById('req-badge')
+      if (existing) existing.textContent = parseInt(existing.textContent || '0') + 1
       toast('Nouvelle demande d\'ami ! 👋')
     })
     .subscribe()
 }
 
 // ── DM ──
-async function startDM(friend){
-  // Find or create DM
-  const {data:myMems}=await sb.from('conversation_members')
+async function startDM(friend) {
+  const {data: myMems} = await sb.from('conversation_members')
     .select('conversation_id,conversations!inner(id,is_group)')
-    .eq('user_id',me.id).eq('conversations.is_group',false)
-  const myDmIds=(myMems||[]).map(m=>m.conversation_id)
-  let convId=null
-  if(myDmIds.length>0){
-    const {data:shared}=await sb.from('conversation_members')
-      .select('conversation_id').eq('user_id',friend.id).in('conversation_id',myDmIds)
-    if(shared&&shared.length>0)convId=shared[0].conversation_id
+    .eq('user_id', me.id).eq('conversations.is_group', false)
+  const myDmIds = (myMems || []).map(m => m.conversation_id)
+  let convId = null
+  if (myDmIds.length > 0) {
+    const {data: shared} = await sb.from('conversation_members')
+      .select('conversation_id').eq('user_id', friend.id).in('conversation_id', myDmIds)
+    if (shared && shared.length > 0) convId = shared[0].conversation_id
   }
-  if(!convId){
-    const {data:newConv}=await sb.from('conversations').insert({is_group:false,created_by:me.id}).select().single()
-    convId=newConv.id
+  if (!convId) {
+    const {data: newConv} = await sb.from('conversations').insert({is_group: false, created_by: me.id}).select().single()
+    convId = newConv.id
     await sb.from('conversation_members').insert([
-      {conversation_id:convId,user_id:me.id},
-      {conversation_id:convId,user_id:friend.id}
+      {conversation_id: convId, user_id: me.id},
+      {conversation_id: convId, user_id: friend.id}
     ])
     await loadConversations()
   }
   switchSbTab('chats')
-  const {data:members}=await sb.from('conversation_members').select('*,profiles(id,username)').eq('conversation_id',convId)
-  openConv(convId,friend.username,false,members)
+  const {data: members} = await sb.from('conversation_members')
+    .select('*,profiles(id,username,avatar_emoji)').eq('conversation_id', convId)
+  openConv(convId, friend.username, false, members)
 }
 
-// ── GROUPS ──
-async function openGroupModal(){
-  const {data:friends}=await sb.from('friendships')
-    .select('*,requester:requester_id(id,username),addressee:addressee_id(id,username)')
+// ── GROUPES ──
+async function openGroupModal() {
+  const {data: friends} = await sb.from('friendships')
+    .select('*,requester:requester_id(id,username,avatar_emoji),addressee:addressee_id(id,username,avatar_emoji)')
     .eq('status','accepted').or(`requester_id.eq.${me.id},addressee_id.eq.${me.id}`)
-  const ml=document.getElementById('member-list')
-  ml.innerHTML=''
-  if(!friends||!friends.length){ml.innerHTML='<div class="empty-state">Ajoute des amis d\'abord</div>';}
-  else for(const f of friends){
-    const friend=f.requester_id===me.id?f.addressee:f.requester
-    if(!friend)continue
-    const el=document.createElement('label')
-    el.className='mc'
-    el.innerHTML=`<input type="checkbox" value="${friend.id}"><div class="av sm" style="background:${avColor(friend.username)}">${avLetter(friend.username)}</div><span style="font-size:13px">${esc(friend.username)}</span>`
-    ml.appendChild(el)
+  const ml = document.getElementById('member-list')
+  ml.innerHTML = ''
+  if (!friends || !friends.length) {
+    ml.innerHTML = '<div class="empty-state">Ajoute des amis d\'abord</div>'
+  } else {
+    for (const f of friends) {
+      const friend = f.requester_id === me.id ? f.addressee : f.requester
+      if (!friend) continue
+      const el = document.createElement('label')
+      el.className = 'mc'
+      el.innerHTML = `<input type="checkbox" value="${friend.id}"><div class="av sm">${esc(friend.avatar_emoji || '😊')}</div><span style="font-size:13px">${esc(friend.username)}</span>`
+      ml.appendChild(el)
+    }
   }
-  document.getElementById('grp-name').value=''
+  document.getElementById('grp-name').value = ''
   document.getElementById('ov-group').classList.add('on')
 }
-async function doCreateGroup(){
-  const name=document.getElementById('grp-name').value.trim()
-  if(!name){toast('Donne un nom au groupe','err');return}
-  const checked=[...document.querySelectorAll('#member-list input:checked')].map(i=>i.value)
-  if(checked.length<1){toast('Ajoute au moins 1 membre','err');return}
-  const {data:conv}=await sb.from('conversations').insert({is_group:true,name,created_by:me.id}).select().single()
-  const members=[{conversation_id:conv.id,user_id:me.id},...checked.map(id=>({conversation_id:conv.id,user_id:id}))]
+
+async function doCreateGroup() {
+  const name = document.getElementById('grp-name').value.trim()
+  if (!name) { toast('Donne un nom au groupe','err'); return }
+  const checked = [...document.querySelectorAll('#member-list input:checked')].map(i => i.value)
+  if (checked.length < 1) { toast('Ajoute au moins 1 membre','err'); return }
+  const {data: conv} = await sb.from('conversations').insert({is_group: true, name, created_by: me.id}).select().single()
+  const members = [{conversation_id: conv.id, user_id: me.id}, ...checked.map(id => ({conversation_id: conv.id, user_id: id}))]
   await sb.from('conversation_members').insert(members)
   closeModal('ov-group')
   toast('Groupe créé ! 🎉')
   await loadConversations()
-  const {data:mems}=await sb.from('conversation_members').select('*,profiles(id,username)').eq('conversation_id',conv.id)
-  openConv(conv.id,name,true,mems)
+  const {data: mems} = await sb.from('conversation_members').select('*,profiles(id,username,avatar_emoji)').eq('conversation_id', conv.id)
+  openConv(conv.id, name, true, mems)
 }
 
-// ── ADD FRIEND MODAL ──
-function openFriendModal(){
-  document.getElementById('search-user').value=''
-  document.getElementById('search-res').innerHTML=''
+// ── RECHERCHE AMI ──
+function openFriendModal() {
+  document.getElementById('search-user').value = ''
+  document.getElementById('search-res').innerHTML = ''
   document.getElementById('ov-friend').classList.add('on')
-  setTimeout(()=>document.getElementById('search-user').focus(),100)
+  setTimeout(() => document.getElementById('search-user').focus(), 100)
 }
-let searchTimer=null
-async function searchUsers(){
+let searchTimer = null
+async function searchUsers() {
   clearTimeout(searchTimer)
-  searchTimer=setTimeout(async()=>{
-    const q=document.getElementById('search-user').value.trim().toLowerCase()
-    const res=document.getElementById('search-res')
-    if(!q){res.innerHTML='';return}
-    const {data}=await sb.from('profiles').select('id,username').ilike('username','%'+q+'%').neq('id',me.id).limit(8)
-    if(!data||!data.length){res.innerHTML='<div class="empty-state">Aucun résultat</div>';return}
-    // Get existing friendships
-    const {data:fships}=await sb.from('friendships')
+  searchTimer = setTimeout(async () => {
+    const q = document.getElementById('search-user').value.trim().toLowerCase()
+    const res = document.getElementById('search-res')
+    if (!q) { res.innerHTML = ''; return }
+    const {data} = await sb.from('profiles')
+      .select('id,username,avatar_emoji').ilike('username','%'+q+'%').neq('id', me.id).limit(8)
+    if (!data || !data.length) { res.innerHTML = '<div class="empty-state">Aucun résultat</div>'; return }
+    const {data: fships} = await sb.from('friendships')
       .select('*').or(`requester_id.eq.${me.id},addressee_id.eq.${me.id}`)
-    res.innerHTML=''
-    for(const u of data){
-      const existing=(fships||[]).find(f=>(f.requester_id===u.id||f.addressee_id===u.id))
-      let btnHtml=''
-      if(!existing)btnHtml=`<button class="bsend" onclick="sendReq('${u.id}',this)">Ajouter</button>`
-      else if(existing.status==='pending')btnHtml=`<button class="bsend" disabled>En attente</button>`
-      else btnHtml=`<button class="bsend" disabled>Déjà ami</button>`
-      const el=document.createElement('div');el.className='ri'
-      el.innerHTML=`<div class="av sm" style="background:${avColor(u.username)}">${avLetter(u.username)}</div><span>${esc(u.username)}</span>${btnHtml}`
+    res.innerHTML = ''
+    for (const u of data) {
+      const existing = (fships || []).find(f => (f.requester_id === u.id || f.addressee_id === u.id))
+      let btnHtml = ''
+      if (!existing) btnHtml = `<button class="bsend" onclick="sendReq('${u.id}',this)">Ajouter</button>`
+      else if (existing.status === 'pending') btnHtml = `<button class="bsend" disabled>En attente</button>`
+      else btnHtml = `<button class="bsend" disabled>Déjà ami</button>`
+      const el = document.createElement('div')
+      el.className = 'ri'
+      el.innerHTML = `<div class="av sm">${esc(u.avatar_emoji || '😊')}</div><span>${esc(u.username)}</span>${btnHtml}`
       res.appendChild(el)
     }
-  },300)
+  }, 300)
 }
-async function sendReq(userId,btn){
-  const {error}=await sb.from('friendships').insert({requester_id:me.id,addressee_id:userId})
-  if(error){toast('Erreur : '+error.message,'err');return}
-  btn.textContent='Envoyé ✓'; btn.disabled=true
+async function sendReq(userId, btn) {
+  const {error} = await sb.from('friendships').insert({requester_id: me.id, addressee_id: userId})
+  if (error) { toast('Erreur : ' + error.message,'err'); return }
+  btn.textContent = 'Envoyé ✓'; btn.disabled = true
   toast('Demande envoyée ! 📨')
 }
 
-// ── UTILS ──
-function closeModal(id){document.getElementById(id).classList.remove('on')}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('on')}))
-
 // ── INIT ──
-async function init(){
-  const {data:{session}}=await sb.auth.getSession()
-  if(session){
-    me=session.user
+async function init() {
+  // Pré-charger la grille d'emojis pour l'inscription
+  buildEmojiGrid('reg-emoji-grid','r-emoji','😊')
+  const {data: {session}} = await sb.auth.getSession()
+  if (session) {
+    me = session.user
     await loadMyProfile()
-    if(myProfile)showApp()
-    else{
-      // Profile missing (first load after email confirm)
-      document.getElementById('auth').style.display='flex'
-    }
+    if (myProfile) showApp()
+    else document.getElementById('auth').style.display = 'flex'
   }
 }
 init()
