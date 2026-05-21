@@ -2,9 +2,8 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>ChatApp</title>
-<link rel="apple-touch-icon" href="https://beyondwebx.com/wp-content/uploads/2018/09/contact-form.png">
 <link rel="icon" type="image/png" href="https://beyondwebx.com/wp-content/uploads/2018/09/contact-form.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -22,8 +21,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);height:100vh
 button{font-family:var(--font)}
 
 /* ── AUTH ── */
-#auth{display:flex;align-items:center;justify-content:center;height:100vh;background:radial-gradient(ellipse at 30% 20%,rgba(124,92,252,.12),transparent 60%),var(--bg)}
-.auth-card{background:var(--sidebar);border:1px solid var(--border);border-radius:20px;padding:40px;width:420px}
+#auth{display:flex;align-items:center;justify-content:center;height:100vh;background:radial-gradient(ellipse at 30% 20%,rgba(124,92,252,.12),transparent 60%),var(--bg);padding:20px}
+.auth-card{background:var(--sidebar);border:1px solid var(--border);border-radius:20px;padding:40px;width:100%;max-width:420px}
 .auth-logo{font-size:26px;font-weight:600;margin-bottom:6px;background:linear-gradient(135deg,#a78bfa,#7c5cfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .auth-sub{color:var(--muted);font-size:14px;margin-bottom:28px}
 .auth-tabs{display:flex;gap:4px;background:var(--bg);border-radius:10px;padding:4px;margin-bottom:24px}
@@ -40,29 +39,26 @@ button{font-family:var(--font)}
 .auth-form.active{display:block}
 .err{color:var(--red);font-size:13px;margin-top:10px;text-align:center;min-height:18px}
 
-/* ── EMOJI PICKER dans l'inscription ── */
+/* ── EMOJI PICKER ── */
 .emoji-label{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;display:block}
-.emoji-grid{display:flex;flex-wrap:wrap;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px}
-.ep-btn{font-size:22px;width:40px;height:40px;background:none;border:2px solid transparent;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.emoji-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(40px, 1fr));gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px;max-height:150px;overflow-y:auto}
+.ep-btn{font-size:22px;height:40px;background:none;border:2px solid transparent;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .ep-btn:hover{background:rgba(124,92,252,.15)}
 .ep-btn.selected{border-color:var(--accent);background:rgba(124,92,252,.2)}
 
 /* ── APP ── */
-#app{display:none;height:100vh;flex-direction:row}
+#app{display:none;height:100vh;flex-direction:row;position:relative;width:100%}
 #app.on{display:flex}
 
-/* ── SIDEBAR ── */
-.sb{width:280px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.sb{width:280px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;transition:transform 0.3s ease}
 .sb-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
 .sb-user-info{flex:1;min-width:0}
 .sb-username{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
 .sb-status{font-size:11px;color:var(--green);font-weight:500}
 
-/* ── AVATAR EMOJI ── */
 .av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:rgba(124,92,252,.15);border:2px solid rgba(124,92,252,.25)}
 .av.sm{width:30px;height:30px;font-size:16px}
 .av.md{width:36px;height:36px;font-size:20px}
-.av.lg{width:44px;height:44px;font-size:26px}
 .av.grp{border-radius:10px;background:rgba(79,70,229,.2);border-color:rgba(79,70,229,.35);font-size:16px}
 
 .ib{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:5px;border-radius:6px;transition:color .15s,background .15s;line-height:1;display:flex;align-items:center;justify-content:center}
@@ -72,8 +68,6 @@ button{font-family:var(--font)}
 .sb-tab.active{background:rgba(124,92,252,.15);color:var(--accent)}
 .sb-panel{flex:1;overflow-y:auto;display:none}
 .sb-panel.on{display:block}
-.sb-panel::-webkit-scrollbar{width:3px}
-.sb-panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px}
 .sec{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:12px 16px 5px;display:flex;align-items:center;justify-content:space-between}
 .ci{display:flex;align-items:center;gap:10px;padding:9px 8px;cursor:pointer;transition:background .15s;border-radius:10px;margin:0 8px 2px}
 .ci:hover,.ci.on{background:rgba(124,92,252,.12)}
@@ -91,78 +85,62 @@ button{font-family:var(--font)}
 .req-btns{display:flex;gap:6px;margin-top:8px}
 .bsm{padding:4px 12px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;transition:all .2s}
 .bacc{background:rgba(34,197,94,.12);color:var(--green)}
-.bacc:hover{background:rgba(34,197,94,.22)}
 .brej{background:rgba(248,113,113,.1);color:var(--red)}
-.brej:hover{background:rgba(248,113,113,.2)}
 .empty-state{text-align:center;padding:24px 16px;color:var(--muted);font-size:13px}
 
 /* ── CHAT AREA ── */
-.ca{flex:1;display:flex;flex-direction:column;min-width:0}
+.ca{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--bg)}
 .ch{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:var(--sidebar);flex-shrink:0}
 .ch-info h2{font-size:15px;font-weight:600}
 .ch-info p{font-size:12px;color:var(--muted)}
+.back-btn{display:none}
 .msgs{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:3px}
-.msgs::-webkit-scrollbar{width:3px}
-.msgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.07);border-radius:2px}
 .welcome{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted)}
-.welcome svg{opacity:.15}
 .welcome h2{color:var(--text);font-size:18px;font-weight:600}
-.welcome p{font-size:13px}
 .dsep{align-self:center;font-size:11px;color:var(--muted);background:rgba(255,255,255,.04);border-radius:20px;padding:3px 12px;margin:8px 0}
-.msg{display:flex;flex-direction:column;max-width:62%}
+.msg{display:flex;flex-direction:column;max-width:75%}
 .msg.s{align-self:flex-end;align-items:flex-end}
 .msg.r{align-self:flex-start;align-items:flex-start}
-.msg-who{font-size:11px;color:var(--muted);margin-bottom:2px;padding:0 3px;display:flex;align-items:center;gap:4px}
-.msg-who-emoji{font-size:13px}
+.msg-who{font-size:11px;color:var(--muted);margin-bottom:2px;padding:0 3px}
 .msg-b{padding:9px 13px;border-radius:14px;font-size:14px;line-height:1.5;word-break:break-word}
 .msg.s .msg-b{background:var(--accent);color:#fff;border-bottom-right-radius:3px}
 .msg.r .msg-b{background:var(--panel);color:var(--text);border-bottom-left-radius:3px}
 .msg-t{font-size:10px;color:var(--muted);margin-top:2px;padding:0 3px}
 .ci-area{padding:12px 16px;border-top:1px solid var(--border);flex-shrink:0}
-.ci-box{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:5px 5px 5px 14px;transition:border-color .2s}
-.ci-box:focus-within{border-color:rgba(124,92,252,.4)}
-.ci-box input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:var(--font);font-size:14px}
-.ci-box input::placeholder{color:var(--muted)}
-.send-btn{width:34px;height:34px;background:var(--accent);border:none;border-radius:9px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
-.send-btn:hover{background:var(--accent2)}
+.ci-box{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:5px 5px 5px 14px}
+.ci-box input{flex:1;background:none;border:none;outline:none;color:var(--text);font-size:14px}
+.send-btn{width:34px;height:34px;background:var(--accent);border:none;border-radius:9px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
 /* ── MODALS ── */
-.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(6px)}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(6px);padding:20px}
 .ov.on{display:flex}
-.modal{background:var(--sidebar);border:1px solid var(--border);border-radius:20px;padding:28px;width:400px;max-height:80vh;overflow-y:auto}
-.modal::-webkit-scrollbar{width:3px}
+.modal{background:var(--sidebar);border:1px solid var(--border);border-radius:20px;padding:28px;width:100%;max-width:400px}
 .modal h3{font-size:18px;font-weight:600;margin-bottom:18px}
-.modal .fg input{background:var(--bg)}
 .s-res{margin-top:10px;display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto}
 .ri{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg);border-radius:10px}
 .ri span{font-size:13px;font-weight:500;flex:1}
-.bsend{padding:5px 14px;background:var(--accent);border:none;border-radius:7px;color:#fff;font-size:12px;font-weight:500;cursor:pointer;transition:background .2s}
-.bsend:hover{background:var(--accent2)}
-.bsend:disabled{opacity:.4;cursor:default}
+.bsend{padding:5px 14px;background:var(--accent);border:none;border-radius:7px;color:#fff;font-size:12px;font-weight:500;cursor:pointer}
+.bsend:disabled{opacity:.4}
 .m-list{margin-top:10px;display:flex;flex-direction:column;gap:5px;max-height:200px;overflow-y:auto}
-.mc{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg);border-radius:10px;cursor:pointer;user-select:none}
-.mc input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px}
+.mc{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg);border-radius:10px;cursor:pointer}
 .ma{display:flex;gap:8px;margin-top:18px}
-.bcan{flex:1;padding:11px;background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;cursor:pointer;transition:background .2s}
-.bcan:hover{background:rgba(255,255,255,.05)}
-.bconf{flex:1;padding:11px;background:var(--accent);border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:500;cursor:pointer;transition:background .2s}
-.bconf:hover{background:var(--accent2)}
-.notif{position:fixed;top:18px;right:18px;background:var(--sidebar);border:1px solid var(--border);border-radius:12px;padding:12px 16px;font-size:13px;z-index:200;transform:translateY(-20px);opacity:0;transition:all .3s;pointer-events:none}
+.bcan{flex:1;padding:11px;background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--text);cursor:pointer}
+.bconf{flex:1;padding:11px;background:var(--accent);border:none;border-radius:10px;color:#fff;font-weight:500;cursor:pointer}
+.notif{position:fixed;top:18px;right:18px;background:var(--sidebar);border:1px solid var(--border);border-radius:12px;padding:12px 16px;font-size:13px;z-index:200;transform:translateY(-20px);opacity:0;transition:all .3s}
 .notif.show{transform:translateY(0);opacity:1}
 .notif.ok{border-color:rgba(34,197,94,.3);color:var(--green)}
 .notif.err{border-color:rgba(248,113,113,.3);color:var(--red)}
-.badge{background:var(--accent);color:#fff;font-size:10px;font-weight:600;border-radius:10px;padding:1px 6px;min-width:16px;text-align:center}
+.badge{background:var(--accent);color:#fff;font-size:10px;font-weight:600;border-radius:10px;padding:1px 6px;margin-left:5px}
 
-/* ── MODAL PROFIL ── */
-.profile-modal-av{font-size:52px;text-align:center;margin-bottom:10px;line-height:1}
-.profile-modal-name{text-align:center;font-size:20px;font-weight:600;margin-bottom:4px}
-.profile-modal-sub{text-align:center;color:var(--muted);font-size:13px;margin-bottom:20px}
-.profile-edit-section{background:var(--bg);border-radius:12px;padding:14px;margin-bottom:14px}
-.profile-edit-section label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;display:block}
-.ep-grid{display:flex;flex-wrap:wrap;gap:6px}
-.ep-pick{font-size:22px;width:38px;height:38px;background:none;border:2px solid transparent;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.ep-pick:hover{background:rgba(124,92,252,.15)}
-.ep-pick.sel{border-color:var(--accent);background:rgba(124,92,252,.2)}
+/* ── RESPONSIVE MOBILE ── */
+@media(max-width: 768px) {
+  .sb{position:absolute;z-index:10;left:0;top:0;height:100%;width:100%;border-right:none}
+  .ca{width:100%;height:100%}
+  .back-btn{display:flex;margin-right:4px}
+  
+  #app.chat-active .sb { transform: translateX(-100%); pointer-events: none; }
+  #app.chat-active .ca { display: flex !important; }
+}
 </style>
 </head>
 <body>
@@ -170,23 +148,22 @@ button{font-family:var(--font)}
 <div id="auth">
   <div class="auth-card">
     <div class="auth-logo">💬 ChatApp</div>
-    <div class="auth-sub">Connecte-toi ou crée ton compte</div>
+    <div class="auth-sub">Entre ton pseudo et ton mot de passe</div>
     <div class="auth-tabs">
       <button class="auth-tab active" onclick="switchTab('login')">Connexion</button>
       <button class="auth-tab" onclick="switchTab('register')">Inscription</button>
     </div>
 
     <div id="form-login" class="auth-form active">
-      <div class="fg"><label>Email</label><input id="l-email" type="email" placeholder="toi@example.com"></div>
+      <div class="fg"><label>Nom d'utilisateur</label><input id="l-user" type="text" placeholder="ton pseudo"></div>
       <div class="fg"><label>Mot de passe</label><input id="l-pass" type="password" placeholder="••••••••"></div>
       <button class="btn-main" onclick="doLogin()">Se connecter</button>
       <div class="err" id="l-err"></div>
     </div>
 
     <div id="form-register" class="auth-form">
-      <div class="fg"><label>Nom d'utilisateur</label><input id="r-user" type="text" placeholder="monpseudo" maxlength="20"></div>
-      <div class="fg"><label>Email</label><input id="r-email" type="email" placeholder="toi@example.com"></div>
-      <div class="fg"><label>Mot de passe</label><input id="r-pass" type="password" placeholder="••••••••" minlength="6"></div>
+      <div class="fg"><label>Nom d'utilisateur (Unique)</label><input id="r-user" type="text" placeholder="monpseudo" maxlength="20"></div>
+      <div class="fg"><label>Mot de passe</label><input id="r-pass" type="password" placeholder="••••••••" minlength="4"></div>
       <div class="fg">
         <span class="emoji-label">Choisis ton emoji de profil</span>
         <div class="emoji-grid" id="reg-emoji-grid"></div>
@@ -201,7 +178,7 @@ button{font-family:var(--font)}
 <div id="app">
   <div class="sb">
     <div class="sb-head">
-      <div class="av md" id="my-av" style="cursor:pointer" title="Mon profil" onclick="openProfileModal()">😊</div>
+      <div class="av md" id="my-av">😊</div>
       <div class="sb-user-info">
         <div class="sb-username" id="my-name">...</div>
         <div class="sb-status">● En ligne</div>
@@ -216,8 +193,7 @@ button{font-family:var(--font)}
     </div>
 
     <div class="sb-panel on" id="panel-chats">
-      <div class="sec">
-        Conversations
+      <div class="sec">Conversations
         <button class="ib" title="Nouveau groupe" onclick="openGroupModal()">
           <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
@@ -226,8 +202,7 @@ button{font-family:var(--font)}
     </div>
 
     <div class="sb-panel" id="panel-friends">
-      <div class="sec">
-        Demandes
+      <div class="sec">Demandes
         <button class="ib" title="Ajouter un ami" onclick="openFriendModal()">
           <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
@@ -240,12 +215,14 @@ button{font-family:var(--font)}
 
   <div class="ca">
     <div class="welcome" id="welcome">
-      <svg width="52" height="52" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       <h2>Bienvenue !</h2>
-      <p>Sélectionne une conversation ou commence à discuter</p>
+      <p>Sélectionne une conversation pour commencer à discuter</p>
     </div>
     <div id="chat-view" style="display:none;flex:1;flex-direction:column;min-height:0">
       <div class="ch">
+        <button class="ib back-btn" onclick="closeChatMobile()" title="Retour">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        </button>
         <div class="av md grp" id="ch-av">👥</div>
         <div class="ch-info">
           <h2 id="ch-name">-</h2>
@@ -269,44 +246,22 @@ button{font-family:var(--font)}
   <div class="modal">
     <h3>➕ Ajouter un ami</h3>
     <div class="fg">
-      <label>Recherche par pseudonyme</label>
-      <input id="search-user" type="text" placeholder="pseudo exact…" oninput="searchUsers()">
+      <label>Recherche par pseudo exact</label>
+      <input id="search-user" type="text" placeholder="pseudo…" oninput="searchUsers()">
     </div>
     <div class="s-res" id="search-res"></div>
-    <div class="ma">
-      <button class="bcan" onclick="closeModal('ov-friend')">Fermer</button>
-    </div>
+    <div class="ma"><button class="bcan" onclick="closeModal('ov-friend')">Fermer</button></div>
   </div>
 </div>
 
 <div class="ov" id="ov-group">
   <div class="modal">
     <h3>👥 Nouveau groupe</h3>
-    <div class="fg">
-      <label>Nom du groupe</label>
-      <input id="grp-name" type="text" placeholder="Ex : Les potes">
-    </div>
-    <div class="fg" style="margin-bottom:6px"><label>Ajouter des membres</label></div>
+    <div class="fg"><label>Nom du groupe</label><input id="grp-name" type="text" placeholder="Ex : Les potes"></div>
     <div class="m-list" id="member-list"></div>
     <div class="ma">
       <button class="bcan" onclick="closeModal('ov-group')">Annuler</button>
       <button class="bconf" onclick="doCreateGroup()">Créer le groupe</button>
-    </div>
-  </div>
-</div>
-
-<div class="ov" id="ov-profile">
-  <div class="modal">
-    <div class="profile-modal-av" id="pm-emoji">😊</div>
-    <div class="profile-modal-name" id="pm-name">pseudo</div>
-    <div class="profile-modal-sub">Mon profil</div>
-    <div class="profile-edit-section">
-      <label>Changer mon emoji</label>
-      <div class="ep-grid" id="profile-emoji-grid"></div>
-    </div>
-    <div class="ma">
-      <button class="bcan" onclick="closeModal('ov-profile')">Fermer</button>
-      <button class="bconf" onclick="saveProfileEmoji()">💾 Sauvegarder</button>
     </div>
   </div>
 </div>
@@ -319,51 +274,24 @@ const SURL = 'https://igzdsflctvaktluwwrle.supabase.co'
 const SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlnemRzZmxjdHZha3RsdXd3cmxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzNzIwOTksImV4cCI6MjA5NDk0ODA5OX0.xgPoiXX59NU46F66HXtM0z286gAJxM1BVsgDF7zPkzY'
 const sb = supabase.createClient(SURL, SKEY)
 
-let me = null        
 let myProfile = null 
 let curConv = null   
-let msgSub = null
-let friendSub = null
-let selectedProfileEmoji = '😊'
+let msgSub = null    
 
-const EMOJIS = [
-  '😊','😎','🤩','🥳','😍','🤔','😴','🥺',
-  '😂','🔥','⚡','🌈','🦄','🐉','🦊','🐧',
-  '🎮','🎯','🎸','🎨','📚','🚀','🌙','⭐',
-  '🍕','🍦','🍜','🧃','💎','🏆','💡','🤖'
-]
+const EMOJIS = ['😊','😎','🤩','🥳','😍','🤔','😴','🥺','😂','🔥','⚡','🎮','🚀','⭐','🍕','🤖']
 
-function buildEmojiGrid(containerId, inputId, defaultEmoji='😊') {
+function buildEmojiGrid(containerId, inputId) {
   const grid = document.getElementById(containerId)
   grid.innerHTML = ''
   EMOJIS.forEach(e => {
     const btn = document.createElement('button')
     btn.type = 'button'
-    btn.className = 'ep-btn' + (e === defaultEmoji ? ' selected' : '')
+    btn.className = 'ep-btn' + (e === '😊' ? ' selected' : '')
     btn.textContent = e
     btn.onclick = () => {
       grid.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('selected'))
       btn.classList.add('selected')
-      if (inputId) document.getElementById(inputId).value = e
-    }
-    grid.appendChild(btn)
-  })
-}
-
-function buildProfileEmojiGrid(current) {
-  selectedProfileEmoji = current || '😊'
-  const grid = document.getElementById('profile-emoji-grid')
-  grid.innerHTML = ''
-  EMOJIS.forEach(e => {
-    const btn = document.createElement('button')
-    btn.type = 'button'
-    btn.className = 'ep-pick' + (e === selectedProfileEmoji ? ' sel' : '')
-    btn.textContent = e
-    btn.onclick = () => {
-      grid.querySelectorAll('.ep-pick').forEach(b => b.classList.remove('sel'))
-      btn.classList.add('sel')
-      selectedProfileEmoji = e
-      document.getElementById('pm-emoji').textContent = e
+      document.getElementById(inputId).value = e
     }
     grid.appendChild(btn)
   })
@@ -375,25 +303,18 @@ function toast(msg, type='ok') {
   n.className = 'notif show ' + (type === 'ok' ? 'ok' : 'err')
   setTimeout(() => n.classList.remove('show'), 3000)
 }
-function setErr(id, msg) {
-  const el = document.getElementById(id)
-  if (el) el.textContent = msg
-}
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
-}
-function fullTime(ts) { return new Date(ts).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}) }
-function dateFmt(ts) { return new Date(ts).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}) }
+function setErr(id, msg) { document.getElementById(id).textContent = msg }
+function esc(s) { return String(s).replace(/</g,'&lt;').replace(/>/g,'&gt;') }
 function closeModal(id) { document.getElementById(id).classList.remove('on') }
-document.querySelectorAll('.ov').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('on') }))
 
 function switchTab(t) {
   document.querySelectorAll('.auth-tab').forEach((b,i) => b.classList.toggle('active', i === (t === 'login' ? 0 : 1)))
   document.getElementById('form-login').classList.toggle('active', t === 'login')
   document.getElementById('form-register').classList.toggle('active', t === 'register')
   setErr('l-err',''); setErr('r-err','')
-  if (t === 'register') buildEmojiGrid('reg-emoji-grid','r-emoji','😊')
+  if (t === 'register') buildEmojiGrid('reg-emoji-grid','r-emoji')
 }
+
 function switchSbTab(t) {
   document.querySelectorAll('.sb-tab').forEach((b,i) => b.classList.toggle('active', i === (t === 'chats' ? 0 : 1)))
   document.getElementById('panel-chats').classList.toggle('on', t === 'chats')
@@ -402,112 +323,90 @@ function switchSbTab(t) {
   else loadConversations()
 }
 
+function closeChatMobile() {
+  document.getElementById('app').classList.remove('chat-active')
+  curConv = null
+}
+
 async function doLogin() {
-  const email = document.getElementById('l-email').value.trim()
+  const username = document.getElementById('l-user').value.trim().toLowerCase()
   const pass = document.getElementById('l-pass').value
-  if (!email || !pass) { setErr('l-err','Remplis tous les champs'); return }
-  const {data, error} = await sb.auth.signInWithPassword({email, password: pass})
-  if (error) { setErr('l-err', error.message); return }
-  me = data.user
-  await loadMyProfile()
+  if (!username || !pass) { setErr('l-err','Remplis tous les champs'); return }
+
+  const { data, error } = await sb.from('profiles').select('*').eq('username', username).eq('password_hash', pass).maybeSingle()
+  if (error || !data) { setErr('l-err','Pseudo ou mot de passe incorrect'); return }
+  
+  myProfile = data
+  localStorage.setItem('chat_session', JSON.stringify(myProfile))
   showApp()
 }
 
 async function doRegister() {
   const username = document.getElementById('r-user').value.trim().toLowerCase()
-  const email    = document.getElementById('r-email').value.trim()
   const pass     = document.getElementById('r-pass').value
   const emoji    = document.getElementById('r-emoji').value || '😊'
-  if (!username || !email || !pass) { setErr('r-err','Remplis tous les champs'); return }
-  if (!/^[a-z0-9_]{2,20}$/.test(username)) { setErr('r-err','Pseudo : 2-20 caractères, lettres/chiffres/_'); return }
-  const {data: ex} = await sb.from('profiles').select('id').eq('username', username).maybeSingle()
+
+  if (!username || !pass) { setErr('r-err','Remplis tous les champs'); return }
+  if (!/^[a-z0-9_]{2,20}$/.test(username)) { setErr('r-err','Pseudo : 2-20 caractères (lettres, chiffres, _)'); return }
+
+  const { data: ex } = await sb.from('profiles').select('id').eq('username', username).maybeSingle()
   if (ex) { setErr('r-err','Ce pseudo est déjà pris'); return }
-  const {data, error} = await sb.auth.signUp({email, password: pass})
+
+  const { data, error } = await sb.from('profiles').insert({
+    username,
+    password_hash: pass,
+    avatar_emoji: emoji
+  }).select().single()
+
   if (error) { setErr('r-err', error.message); return }
-  if (!data.user) { setErr('r-err','Vérifie ta boîte mail pour confirmer'); return }
-  await sb.from('profiles').insert({id: data.user.id, username, avatar_emoji: emoji})
-  me = data.user
-  myProfile = {id: me.id, username, avatar_emoji: emoji}
+
+  myProfile = data
+  localStorage.setItem('chat_session', JSON.stringify(myProfile))
   showApp()
 }
 
-async function doLogout() {
-  await sb.auth.signOut()
-  me = null; myProfile = null; curConv = null
+function doLogout() {
+  localStorage.removeItem('chat_session')
+  myProfile = null; curConv = null
   if (msgSub) sb.removeChannel(msgSub)
-  if (friendSub) sb.removeChannel(friendSub)
-  document.getElementById('app').classList.remove('on')
+  document.getElementById('app').classList.remove('on', 'chat-active')
   document.getElementById('auth').style.display = 'flex'
-}
-
-async function loadMyProfile() {
-  const {data} = await sb.from('profiles').select('*').eq('id', me.id).single()
-  myProfile = data
-}
-
-function openProfileModal() {
-  if (!myProfile) return
-  document.getElementById('pm-emoji').textContent = myProfile.avatar_emoji || '😊'
-  document.getElementById('pm-name').textContent = myProfile.username
-  buildProfileEmojiGrid(myProfile.avatar_emoji || '😊')
-  document.getElementById('ov-profile').classList.add('on')
-}
-
-async function saveProfileEmoji() {
-  if (!myProfile) return
-  const {error} = await sb.from('profiles').update({avatar_emoji: selectedProfileEmoji}).eq('id', me.id)
-  if (error) { toast('Erreur : ' + error.message, 'err'); return }
-  myProfile.avatar_emoji = selectedProfileEmoji
-  document.getElementById('my-av').textContent = selectedProfileEmoji
-  closeModal('ov-profile')
-  toast('Profil mis à jour ! ✨')
 }
 
 function showApp() {
   document.getElementById('auth').style.display = 'none'
   document.getElementById('app').classList.add('on')
-  const emoji = myProfile.avatar_emoji || '😊'
-  document.getElementById('my-av').textContent = emoji
+  document.getElementById('my-av').textContent = myProfile.avatar_emoji
   document.getElementById('my-name').textContent = myProfile.username
   loadConversations()
-  subscribeToFriendRequests()
 }
 
+// ── CONVERSATIONS & MESSAGES ──
 async function loadConversations() {
   const cl = document.getElementById('conv-list')
-  cl.innerHTML = '<div class="empty-state">Chargement…</div>'
-  const {data: memberships} = await sb.from('conversation_members').select('conversation_id').eq('user_id', me.id)
-  if (!memberships || !memberships.length) {
-    cl.innerHTML = '<div class="empty-state">Aucune conversation</div>'
-    return
-  }
+  if(!cl) return
+  
+  const { data: memberships } = await sb.from('conversation_members').select('conversation_id').eq('user_id', myProfile.id)
+  if (!memberships || !memberships.length) { cl.innerHTML = '<div class="empty-state">Aucune conversation</div>'; return }
+
   const ids = memberships.map(m => m.conversation_id)
-  const {data: convs} = await sb.from('conversations').select('*').in('id', ids).order('created_at', {ascending: false})
-  if (!convs || !convs.length) { cl.innerHTML = '<div class="empty-state">Aucune conversation</div>'; return }
-  const {data: allMembers} = await sb.from('conversation_members').select('conversation_id,user_id,profiles(id,username,avatar_emoji)').in('conversation_id', ids)
-  const {data: lastMsgs} = await sb.from('messages').select('*').in('conversation_id', ids)
+  const { data: convs } = await sb.from('conversations').select('*').in('id', ids).order('created_at', {ascending: false})
+  const { data: allMembers } = await sb.from('conversation_members').select('conversation_id, user_id, profiles(id,username,avatar_emoji)').in('conversation_id', ids)
   cl.innerHTML = ''
+
   for (const conv of convs) {
     const members = (allMembers || []).filter(m => m.conversation_id === conv.id)
-    const others = members.filter(m => m.user_id !== me.id).map(m => m.profiles)
+    const others = members.filter(m => m.user_id !== myProfile.id).map(m => m.profiles)
     let name = conv.name
     if (!conv.is_group && others.length > 0) name = others[0].username
-    else if (!name) name = 'Groupe'
-    const convMsgs = (lastMsgs || []).filter(m => m.conversation_id === conv.id)
-    convMsgs.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
-    const last = convMsgs[0]
-    const preview = last ? (last.sender_id === me.id ? `Toi : ${last.content}` : last.content) : 'Aucun message'
+
     const otherEmoji = (!conv.is_group && others[0]) ? (others[0].avatar_emoji || '😊') : '👥'
     const el = document.createElement('div')
     el.className = 'ci' + (curConv && curConv.id === conv.id ? ' on' : '')
-    el.id = 'sidebar-conv-' + conv.id
     el.onclick = () => openConv(conv.id, name, conv.is_group, members)
     el.innerHTML = `
       <div class="av ${conv.is_group ? 'grp' : 'md'}">${otherEmoji}</div>
-      <div class="ci-info">
-        <div class="ci-name">${esc(name)}</div>
-        <div class="ci-prev">${esc(preview.substring(0, 40))}</div>
-      </div>
+      <div class="ci-info"><div class="ci-name">${esc(name)}</div></div>
     `
     cl.appendChild(el)
   }
@@ -516,100 +415,54 @@ async function loadConversations() {
 async function openConv(id, name, isGroup, members) {
   curConv = {id, name, isGroup, members}
   document.getElementById('welcome').style.display = 'none'
-  const cv = document.getElementById('chat-view')
-  cv.style.display = 'flex'
-  const av = document.getElementById('ch-av')
-  if (isGroup) {
-    av.textContent = '👥'
-    av.className = 'av md grp'
-  } else {
-    const others = (members || []).filter(m => m.user_id !== me.id).map(m => m.profiles)
-    av.textContent = (others[0] && others[0].avatar_emoji) ? others[0].avatar_emoji : '😊'
-    av.className = 'av md'
-    av.style.background = ''
-  }
+  document.getElementById('chat-view').style.display = 'flex'
   document.getElementById('ch-name').textContent = name
-  const memberNames = (members || []).filter(m => m.user_id !== me.id).map(m => m.profiles?.username).filter(Boolean)
-  document.getElementById('ch-sub').textContent = isGroup ? `${members.length} membres` : (memberNames[0] || '')
+  document.getElementById('ch-sub').textContent = isGroup ? `${members.length} membres` : 'Discussion privée'
   
-  document.querySelectorAll('.ci').forEach(c => c.classList.remove('on'))
-  const currentSidebarItem = document.getElementById('sidebar-conv-' + id)
-  if (currentSidebarItem) currentSidebarItem.classList.add('on')
-  
+  document.getElementById('app').classList.add('chat-active')
+
   await loadMessages(id)
-  
+
+  // ÉCOUTE ET RECEPTION EN TEMPS RÉEL (REALTIME CORRIGÉ)
   if (msgSub) sb.removeChannel(msgSub)
-  
-  // ── FIX REALTIME : Rallie l'User 2 instantanément ──
   msgSub = sb.channel('msgs:' + id)
     .on('postgres_changes', {event:'INSERT', schema:'public', table:'messages', filter:`conversation_id=eq.${id}`}, async (p) => {
-      // Si c'est un message reçu d'un autre utilisateur, on va chercher son profil pour l'afficher à la seconde près
-      if (p.new.sender_id !== me.id) {
-        const { data: profileData } = await sb.from('profiles').select('username, avatar_emoji').eq('id', p.new.sender_id).single()
-        const fullMsg = { ...p.new, profiles: profileData }
-        appendMsg(fullMsg)
-      } else {
-        // Optionnel : si le message vient de soi et qu'il n'est pas encore rendu localement
-        const localItems = document.querySelectorAll('.msg.s .msg-b')
-        const alreadyRendered = Array.from(localItems).some(el => el.textContent === p.new.content)
-        if(!alreadyRendered) {
-          const fullMsg = { ...p.new, profiles: { username: myProfile.username, avatar_emoji: myProfile.avatar_emoji } }
-          appendMsg(fullMsg)
+      // Si le message vient d'un autre utilisateur, on va chercher son profil pour l'afficher instantanément
+      if(p.new.sender_id !== myProfile.id) {
+        const { data: msgWithProfile } = await sb.from('messages').select('*, profiles(username, avatar_emoji)').eq('id', p.new.id).single()
+        if (msgWithProfile && curConv && curConv.id === msgWithProfile.conversation_id) {
+          appendMsg(msgWithProfile)
         }
-      }
-      // Actualise la preview dans la barre latérale sans fermer le chat
-      const sideItem = document.getElementById('sidebar-conv-' + id)
-      if(sideItem) {
-        const prevEl = sideItem.querySelector('.ci-prev')
-        if(prevEl) prevEl.textContent = p.new.sender_id === me.id ? `Toi : ${p.new.content}` : p.new.content
       }
     })
     .subscribe()
-    
-  document.getElementById('msg-inp').focus()
 }
 
 async function loadMessages(convId) {
   const box = document.getElementById('msgs')
-  box.innerHTML = '<div class="empty-state">Chargement…</div>'
-  const {data: msgs} = await sb.from('messages').select('*,profiles(username,avatar_emoji)').eq('conversation_id', convId).order('created_at')
   box.innerHTML = ''
-  if (!msgs || !msgs.length) { box.innerHTML = '<div class="empty-state">Aucun message. Dis bonjour ! 👋</div>'; return }
-  let lastDate = null
-  for (const m of msgs) {
-    const d = new Date(m.created_at).toDateString()
-    if (d !== lastDate) {
-      const s = document.createElement('div')
-      s.className = 'dsep'
-      s.textContent = dateFmt(m.created_at)
-      box.appendChild(s)
-      lastDate = d
-    }
-    appendMsg(m, false)
-  }
-  box.scrollTop = box.scrollHeight
+  const { data: msgs } = await sb.from('messages').select('*, profiles(username,avatar_emoji)').eq('conversation_id', convId).order('created_at')
+  if(msgs) msgs.forEach(m => appendMsg(m))
 }
 
-function appendMsg(m, scroll=true) {
+function appendMsg(m) {
   const box = document.getElementById('msgs')
-  const isMine = m.sender_id === me.id
-  const es = box.querySelector('.empty-state')
-  if (es) es.remove()
+  if (!box) return
   
+  // On détermine si le message appartient à l'utilisateur actuellement connecté
+  const isMine = m.sender_id === myProfile.id
   const el = document.createElement('div')
   el.className = 'msg ' + (isMine ? 's' : 'r')
-  const senderName = m.profiles?.username || '?'
+
+  const senderName = m.profiles?.username || 'Utilisateur'
   const senderEmoji = m.profiles?.avatar_emoji || '😊'
-  const whoHtml = (!isMine && curConv?.isGroup)
-    ? `<div class="msg-who"><span class="msg-who-emoji">${esc(senderEmoji)}</span>${esc(senderName)}</div>`
-    : ''
+
   el.innerHTML = `
-    ${whoHtml}
+    <div class="msg-who">${senderEmoji} ${esc(senderName)}</div>
     <div class="msg-b">${esc(m.content)}</div>
-    <div class="msg-t">${fullTime(m.created_at || new Date())}</div>
   `
   box.appendChild(el)
-  if (scroll) box.scrollTop = box.scrollHeight
+  box.scrollTop = box.scrollHeight
 }
 
 async function sendMsg() {
@@ -618,40 +471,33 @@ async function sendMsg() {
   if (!content || !curConv) return
   inp.value = ''
   
-  // Affiche instantanément pour l'envoyeur pour un effet fluide
+  // 1. Affiche immédiatement le message pour l'User 1 (Expéditeur)
   const localMsg = {
-    sender_id: me.id,
+    sender_id: myProfile.id,
     content: content,
-    created_at: new Date().toISOString(),
-    profiles: { username: myProfile.username, avatar_emoji: myProfile.avatar_emoji }
+    profiles: {
+      username: myProfile.username,
+      avatar_emoji: myProfile.avatar_emoji
+    }
   }
   appendMsg(localMsg)
-  
-  const sideItem = document.getElementById('sidebar-conv-' + curConv.id)
-  if(sideItem) {
-    const prevEl = sideItem.querySelector('.ci-prev')
-    if(prevEl) prevEl.textContent = `Toi : ${content}`
-  }
 
-  await sb.from('messages').insert({conversation_id: curConv.id, sender_id: me.id, content})
+  // 2. Envoie à Supabase (qui va notifier l'User 2 instantanément via le Realtime)
+  await sb.from('messages').insert({conversation_id: curConv.id, sender_id: myProfile.id, content})
 }
 
+// ── GESTION DES AMIS ──
 async function loadFriends() {
   const fl = document.getElementById('friend-list')
   fl.innerHTML = ''
-  const {data} = await sb.from('friendships').select('*,requester:requester_id(id,username,avatar_emoji),addressee:addressee_id(id,username,avatar_emoji)').eq('status','accepted').or(`requester_id.eq.${me.id},addressee_id.eq.${me.id}`)
+  const {data} = await sb.from('friendships').select('*,requester:requester_id(*),addressee:addressee_id(*)').eq('status','accepted').or(`requester_id.eq.${myProfile.id},addressee_id.eq.${myProfile.id}`)
   if (!data || !data.length) { fl.innerHTML = '<div class="empty-state">Aucun ami pour l\'instant</div>'; return }
   for (const f of data) {
-    const friend = f.requester_id === me.id ? f.addressee : f.requester
-    if (!friend) continue
+    const friend = f.requester_id === myProfile.id ? f.addressee : f.requester
     const el = document.createElement('div')
     el.className = 'fi'
     el.onclick = () => startDM(friend)
-    el.innerHTML = `
-      <div class="av sm">${esc(friend.avatar_emoji || '😊')}</div>
-      <span style="font-size:14px;font-weight:500">${esc(friend.username)}</span>
-      <div class="dot" style="margin-left:auto"></div>
-    `
+    el.innerHTML = `<div class="av sm">${friend.avatar_emoji}</div><span style="font-size:14px;font-weight:500">${friend.username}</span>`
     fl.appendChild(el)
   }
 }
@@ -659,67 +505,26 @@ async function loadFriends() {
 async function loadRequests() {
   const rl = document.getElementById('req-list')
   rl.innerHTML = ''
-  const {data} = await sb.from('friendships').select('*,requester:requester_id(id,username,avatar_emoji)').eq('addressee_id', me.id).eq('status','pending')
-  if (!data || !data.length) { rl.innerHTML = '<div class="empty-state" style="padding:8px 16px">Aucune demande</div>'; return }
+  const {data} = await sb.from('friendships').select('*,requester:requester_id(*)').eq('addressee_id', myProfile.id).eq('status','pending')
+  if (!data || !data.length) { rl.innerHTML = '<div class="empty-state">Aucune demande</div>'; return }
   for (const r of data) {
     const el = document.createElement('div')
     el.className = 'req'
     el.innerHTML = `
-      <div class="req-top">
-        <div class="av sm">${esc(r.requester.avatar_emoji || '😊')}</div>
-        <div><div class="req-name">${esc(r.requester.username)}</div><div class="req-sub">Demande d'ami</div></div>
-      </div>
+      <div class="req-top"><div class="av sm">${r.requester.avatar_emoji}</div><div class="req-name">${r.requester.username}</div></div>
       <div class="req-btns">
-        <button class="bsm bacc" onclick="acceptReq('${r.id}')">✓ Accepter</button>
-        <button class="bsm brej" onclick="rejectReq('${r.id}')">✕ Refuser</button>
-      </div>
-    `
+        <button class="bsm bacc" onclick="acceptReq('${r.id}')">✓</button>
+        <button class="bsm brej" onclick="rejectReq('${r.id}')">✕</button>
+      </div>`
     rl.appendChild(el)
   }
-  const tab = document.getElementById('tab-friends')
-  if (data.length > 0) {
-    if (!tab.querySelector('.badge')) {
-      const b = document.createElement('span')
-      b.className = 'badge'; b.id = 'req-badge'; b.style.marginLeft = '5px'
-      tab.appendChild(b)
-    }
-    document.getElementById('req-badge').textContent = data.length
-  } else {
-    const b = document.getElementById('req-badge'); if (b) b.remove()
-  }
 }
 
-async function acceptReq(id) {
-  await sb.from('friendships').update({status:'accepted'}).eq('id', id)
-  toast('Ami ajouté ! 🎉')
-  loadRequests(); loadFriends()
-}
-async function rejectReq(id) {
-  await sb.from('friendships').delete().eq('id', id)
-  loadRequests()
-}
-
-function subscribeToFriendRequests() {
-  if (friendSub) sb.removeChannel(friendSub)
-  friendSub = sb.channel('friend-req:' + me.id)
-    .on('postgres_changes', {event:'INSERT', schema:'public', table:'friendships', filter:`addressee_id=eq.${me.id}`}, p => {
-      const panel = document.getElementById('panel-friends')
-      if (panel.classList.contains('on')) loadRequests()
-      const tab = document.getElementById('tab-friends')
-      if (!tab.querySelector('.badge')) {
-        const b = document.createElement('span')
-        b.className = 'badge'; b.id = 'req-badge'; b.style.marginLeft = '5px'
-        tab.appendChild(b)
-      }
-      const existing = document.getElementById('req-badge')
-      if (existing) existing.textContent = parseInt(existing.textContent || '0') + 1
-      toast('Nouvelle demande d\'ami ! 👋')
-    })
-    .subscribe()
-}
+async function acceptReq(id) { await sb.from('friendships').update({status:'accepted'}).eq('id', id); loadRequests(); loadFriends() }
+async function rejectReq(id) { await sb.from('friendships').delete().eq('id', id); loadRequests() }
 
 async function startDM(friend) {
-  const {data: myMems} = await sb.from('conversation_members').select('conversation_id,conversations!inner(id,is_group)').eq('user_id', me.id).eq('conversations.is_group', false)
+  const {data: myMems} = await sb.from('conversation_members').select('conversation_id,conversations!inner(id,is_group)').eq('user_id', myProfile.id).eq('conversations.is_group', false)
   const myDmIds = (myMems || []).map(m => m.conversation_id)
   let convId = null
   if (myDmIds.length > 0) {
@@ -727,99 +532,71 @@ async function startDM(friend) {
     if (shared && shared.length > 0) convId = shared[0].conversation_id
   }
   if (!convId) {
-    const {data: newConv} = await sb.from('conversations').insert({is_group: false, created_by: me.id}).select().single()
+    const {data: newConv} = await sb.from('conversations').insert({is_group: false, created_by: myProfile.id}).select().single()
     convId = newConv.id
-    await sb.from('conversation_members').insert([
-      {conversation_id: convId, user_id: me.id},
-      {conversation_id: convId, user_id: friend.id}
-    ])
-    await loadConversations()
+    await sb.from('conversation_members').insert([{conversation_id: convId, user_id: myProfile.id},{conversation_id: convId, user_id: friend.id}])
   }
   switchSbTab('chats')
-  const {data: members} = await sb.from('conversation_members').select('*,profiles(id,username,avatar_emoji)').eq('conversation_id', convId)
+  const {data: members} = await sb.from('conversation_members').select('*,profiles(*)').eq('conversation_id', convId)
   openConv(convId, friend.username, false, members)
 }
 
+function openFriendModal() { document.getElementById('ov-friend').classList.add('on') }
+
+async function searchUsers() {
+  const q = document.getElementById('search-user').value.trim().toLowerCase()
+  const res = document.getElementById('search-res')
+  if (!q) { res.innerHTML = ''; return }
+
+  const {data} = await sb.from('profiles').select('*').ilike('username', '%'+q+'%').neq('id', myProfile.id).limit(5)
+  res.innerHTML = ''
+  if(data) data.forEach(u => {
+    const el = document.createElement('div')
+    el.className = 'ri'
+    el.innerHTML = `<span>${u.avatar_emoji} ${u.username}</span><button class="bsend" onclick="sendReq('${u.id}',this)">Ajouter</button>`
+    res.appendChild(el)
+  })
+}
+
+async function sendReq(userId, btn) {
+  await sb.from('friendships').insert({requester_id: myProfile.id, addressee_id: userId})
+  btn.textContent = 'Envoyé ✓'; btn.disabled = true
+}
+
+// ── GESTION DES GROUPES ──
 async function openGroupModal() {
-  const {data: friends} = await sb.from('friendships').select('*,requester:requester_id(id,username,avatar_emoji),addressee:addressee_id(id,username,avatar_emoji)').eq('status','accepted').or(`requester_id.eq.${me.id},addressee_id.eq.${me.id}`)
+  const {data: friends} = await sb.from('friendships').select('*,requester:requester_id(*),addressee:addressee_id(*)').eq('status','accepted').or(`requester_id.eq.${myProfile.id},addressee_id.eq.${myProfile.id}`)
   const ml = document.getElementById('member-list')
   ml.innerHTML = ''
-  if (!friends || !friends.length) {
-    ml.innerHTML = '<div class="empty-state">Ajoute des amis d\'abord</div>'
-  } else {
-    for (const f of friends) {
-      const friend = f.requester_id === me.id ? f.addressee : f.requester
-      if (!friend) continue
-      const el = document.createElement('label')
-      el.className = 'mc'
-      el.innerHTML = `<input type="checkbox" value="${friend.id}"><div class="av sm">${esc(friend.avatar_emoji || '😊')}</div><span style="font-size:13px">${esc(friend.username)}</span>`
-      ml.appendChild(el)
-    }
-  }
-  document.getElementById('grp-name').value = ''
+  if(friends) friends.forEach(f => {
+    const friend = f.requester_id === myProfile.id ? f.addressee : f.requester
+    const el = document.createElement('label')
+    el.className = 'mc'
+    el.innerHTML = `<input type="checkbox" value="${friend.id}"> <span>${friend.avatar_emoji} ${friend.username}</span>`
+    ml.appendChild(el)
+  })
   document.getElementById('ov-group').classList.add('on')
 }
 
 async function doCreateGroup() {
   const name = document.getElementById('grp-name').value.trim()
-  if (!name) { toast('Donne un nom au groupe','err'); return }
   const checked = [...document.querySelectorAll('#member-list input:checked')].map(i => i.value)
-  if (checked.length < 1) { toast('Ajoute au moins 1 membre','err'); return }
-  const {data: conv} = await sb.from('conversations').insert({is_group: true, name, created_by: me.id}).select().single()
-  const members = [{conversation_id: conv.id, user_id: me.id}, ...checked.map(id => ({conversation_id: conv.id, user_id: id}))]
+  if (!name || checked.length < 1) return
+
+  const {data: conv} = await sb.from('conversations').insert({is_group: true, name, created_by: myProfile.id}).select().single()
+  const members = [{conversation_id: conv.id, user_id: myProfile.id}, ...checked.map(id => ({conversation_id: conv.id, user_id: id}))]
   await sb.from('conversation_members').insert(members)
   closeModal('ov-group')
-  toast('Groupe créé ! 🎉')
-  await loadConversations()
-  const {data: mems} = await sb.from('conversation_members').select('*,profiles(id,username,avatar_emoji)').eq('conversation_id', conv.id)
-  openConv(conv.id, name, true, mems)
+  loadConversations()
 }
 
-function openFriendModal() {
-  document.getElementById('search-user').value = ''
-  document.getElementById('search-res').innerHTML = ''
-  document.getElementById('ov-friend').classList.add('on')
-  setTimeout(() => document.getElementById('search-user').focus(), 100)
-}
-let searchTimer = null
-async function searchUsers() {
-  clearTimeout(searchTimer)
-  searchTimer = setTimeout(async () => {
-    const q = document.getElementById('search-user').value.trim().toLowerCase()
-    const res = document.getElementById('search-res')
-    if (!q) { res.innerHTML = ''; return }
-    const {data} = await sb.from('profiles').select('id,username,avatar_emoji').ilike('username','%'+q+'%').neq('id', me.id).limit(8)
-    if (!data || !data.length) { res.innerHTML = '<div class="empty-state">Aucun résultat</div>'; return }
-    const {data: fships} = await sb.from('friendships').select('*').or(`requester_id.eq.${me.id},addressee_id.eq.${me.id}`)
-    res.innerHTML = ''
-    for (const u of data) {
-      const existing = (fships || []).find(f => (f.requester_id === u.id || f.addressee_id === u.id))
-      let btnHtml = ''
-      if (!existing) btnHtml = `<button class="bsend" onclick="sendReq('${u.id}',this)">Ajouter</button>`
-      else if (existing.status === 'pending') btnHtml = `<button class="bsend" disabled>En attente</button>`
-      else btnHtml = `<button class="bsend" disabled>Déjà ami</button>`
-      const el = document.createElement('div')
-      el.className = 'ri'
-      el.innerHTML = `<div class="av sm">${esc(u.avatar_emoji || '😊')}</div><span>${esc(u.username)}</span>${btnHtml}`
-      res.appendChild(el)
-    }
-  }, 300)
-}
-async function sendReq(userId, btn) {
-  const {error} = await sb.from('friendships').insert({requester_id: me.id, addressee_id: userId})
-  if (error) { toast('Erreur : ' + error.message,'err'); return }
-  btn.textContent = 'Envoyé ✓'; btn.disabled = true
-  toast('Demande envoyée ! 📨')
-}
-
-async function init() {
-  buildEmojiGrid('reg-emoji-grid','r-emoji','😊')
-  const {data: {session}} = await sb.auth.getSession()
-  if (session) {
-    me = session.user
-    await loadMyProfile()
-    if (myProfile) showApp()
-    else document.getElementById('auth').style.display = 'flex'
+// ── VERIF SESSION AUTOMATIQUE ──
+function init() {
+  buildEmojiGrid('reg-emoji-grid','r-emoji')
+  const saved = localStorage.getItem('chat_session')
+  if (saved) {
+    myProfile = JSON.parse(saved)
+    showApp()
   }
 }
 init()
